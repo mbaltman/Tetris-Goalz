@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: TetriminoAssets
+  m_EditorClassIdentifier: 
+  m_GroupName: TetriminoAssets
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ad38f5ea53812ac4bb1257e7610ca305
+  m_SerializeEntries:
+  - m_GUID: 95d21eac210deac41a2a35ef2c0950ac
+    m_Address: Assets/Prefabs/JPiece.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bdb948b2c13fcd44e852abf0be64f305
+    m_Address: Assets/Prefabs/IPiece.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 209e0a5901913e34f8b2b31a51aa6715
+    m_Address: Assets/Prefabs/LPiece.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bbc1e0016d63508488ee37521cfc0f57
+    m_Address: Assets/Prefabs/SPiece.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ecf618736cf23204cbb77c9693ba9ae5
+    m_Address: Assets/Prefabs/TPiece.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a71779955bf588a4b98ef943b5403e44
+    m_Address: Assets/Prefabs/ZPiece.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cb33dc0a3aae3cc48994270df59d765e
+    m_Address: Assets/Prefabs/OPiece.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 718a0f24ac9c0524c910d05e89076e32, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 2f14360f3afd36246a12acef5a53982b, type: 2}
+    - {fileID: 11400000, guid: 413b7d718f15f254d81d7f32cf061415, type: 2}
