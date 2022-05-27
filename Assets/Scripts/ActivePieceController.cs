@@ -174,6 +174,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
         if(OnStop != null)
         {
           gameBoardManager.SavePieceToBackground(transform.position, pieceMatrix, index);
+          gameBoardManager.CheckForClearedLines(transform.position, pieceMatrix);
           OnStop();
         }
       }

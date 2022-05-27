@@ -15,6 +15,9 @@ public class GameBoardManager : MonoBehaviour
     public int [,] availabilityGrid;
     private GameObject backgroundTilePlaceholder;
 
+    public delegate void GameBoardDelegate(int row);
+    public event GameBoardDelegate ClearLine;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,7 +82,7 @@ public class GameBoardManager : MonoBehaviour
 
           if(matrix[col,row] > 0)
           {
-            if( currPosition.x < 0 || currPosition.x >10 || currPosition.y <0 || currPosition.y > 23 )
+            if( currPosition.x < 0 || currPosition.x >Constants.boardWidth || currPosition.y <0 || currPosition.y > Constants.boardHeight + Constants.boardExtraHeight )
             {
               msg = "conflict found at point x " + currPosition.x + "y " + currPosition.y;
               Debug.Log(msg);
@@ -99,13 +102,42 @@ public class GameBoardManager : MonoBehaviour
     }
 
 
+    /*
+    CheckForClearedLines scans the four lines that may have been cleared by the most recent piece dropping
+    and if necessary, invokes the function to remove those lines.
+    */
     public void CheckForClearedLines(Vector3 position, Matrix pieceMatrix)
     {
+      Vector3 matrixPosition = pieceMatrix.GetCenter();
+      Vector3 currPosition = new Vector3(0f,0f,0f);
+      bool complete = false;
+      string msg = "";
+      //adjust highest y line
+      currPosition.y = position.y  - matrixPosition.y;
 
-    }
-    public void RemoveClearedLines()
-    {
+      for ( int row =0; row < Constants.tetriminoHeight; row ++ )
+      {
+        complete = true;
+        msg ="complete line";
+        for( int col = 0; col < Constants.boardWidth; col ++)
+        {
+          if(availabilityGrid[col, row+(int)currPosition.y] == 0)
+          {
+            complete = false;
+            msg = "incomplete line";
+            break;
+          }
+        }
+        if(complete)
+        {
+          if(ClearLine != null)
+          {
+            ClearLine(row+(int)currPosition.y);
+          }
+        }
+        Debug.Log(msg);
 
+      }
     }
     /*
     when a piece stops moving, it invokes this method. This allows the piece to be saved to the background
@@ -128,7 +160,6 @@ public class GameBoardManager : MonoBehaviour
 
             availabilityGrid[(int)currPosition.x,(int)currPosition.y ] = 1;
             backgroundTilePlaceholder = (GameObject)AssetDatabase.LoadAssetAtPath(Constants.tilePrefabs[index], typeof(GameObject)) ;
-
             Instantiate(backgroundTilePlaceholder, currPosition, Quaternion.identity);
           }
         }

@@ -6,6 +6,9 @@ public class Constants
 {
     public static int tetriminoHeight = 4;
     public static int tetriminoWidth = 4;
+    public static int boardWidth = 10;
+    public static int boardHeight = 20;
+    public static int boardExtraHeight =3;
 
     //in order to make sure matrices are accessed via col, row, aka x,y. each entry in this matrix, is a column.
     public static int [,] initialGameBoard = {{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
