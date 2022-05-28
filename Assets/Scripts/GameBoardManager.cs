@@ -112,6 +112,8 @@ public class GameBoardManager : MonoBehaviour
       Vector3 currPosition = new Vector3(0f,0f,0f);
       bool complete = false;
       string msg = "";
+      List<int> linesToClear = new List<int>();
+
       //adjust highest y line
       currPosition.y = position.y  - matrixPosition.y;
 
@@ -132,12 +134,37 @@ public class GameBoardManager : MonoBehaviour
         {
           if(ClearLine != null)
           {
+            Debug.Log("clear line: "+ (row+(int)currPosition.y) );
             ClearLine(row+(int)currPosition.y);
+            linesToClear.Add(row+(int)currPosition.y);
           }
         }
         Debug.Log(msg);
 
       }
+
+      int offset = 0;
+      foreach( int row in linesToClear)
+      {
+        DeleteRow(row-offset);
+        offset++;
+      }
+    }
+
+    public void DeleteRow(int rowCleared)
+    {
+      for (int row = 0; row < Constants.boardHeight + Constants.boardExtraHeight; row++)
+      {
+        for (int col = 0; col <  Constants.boardWidth; col++)
+        {
+          if(row> rowCleared )
+          {
+            //shift everything down 1 in the y direction
+            availabilityGrid[col,row-1] = availabilityGrid[col,row];
+          }
+        }
+      }
+
     }
     /*
     when a piece stops moving, it invokes this method. This allows the piece to be saved to the background

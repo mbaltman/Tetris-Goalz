@@ -6,11 +6,17 @@ using static GameBoardManager;
 public class TetriminoController : MonoBehaviour
 {
     GameBoardManager gameBoardManager;
+    bool deleteMyself;
+    bool moveDown;
+    float distanceDown;
 
     // Start is called before the first frame update
     void Awake()
     {
      GameObject.Find("Grid").GetComponent<GameBoardManager>().ClearLine += CheckMyself;
+     deleteMyself = false;
+     moveDown = false;
+     distanceDown = 0f;
 
 
     }
@@ -18,6 +24,18 @@ public class TetriminoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      if(deleteMyself)
+      {
+        Debug.Log("KILLL MEEEE");
+        GameObject.Find("Grid").GetComponent<GameBoardManager>().ClearLine -= CheckMyself;
+        GameObject.Destroy(gameObject);
+      }
+      else if(moveDown)
+      {
+        transform.position = transform.position + new Vector3(0f,-distanceDown,0f);
+        distanceDown= 0f;
+        moveDown = false;
+      }
 
     }
 
@@ -26,13 +44,14 @@ public class TetriminoController : MonoBehaviour
     {
       if( (int) transform.position.y == row)
       {
-        Debug.Log("KILLL MEEEE");
-        GameObject.Find("Grid").GetComponent<GameBoardManager>().ClearLine -= CheckMyself;
-        GameObject.Destroy(gameObject);
+        deleteMyself = true;
+
       }
       else if((int) transform.position.y > row)
       {
-        transform.position = transform.position + new Vector3(0f,-1f,0f);
+        moveDown = true;
+        distanceDown += 1f;
+
       }
     }
 
