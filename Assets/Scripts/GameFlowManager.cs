@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
+using System.Linq;
+using System.Security.Cryptography;
+
 using static Constants;
+using Random = System.Random;
 
 
 /*
@@ -16,11 +21,14 @@ public class GameFlowManager : MonoBehaviour
 
     private GameObject activePieceInstance;
     private ActivePieceController controller;
+    private int [] randomIndexList = { 0,1,2,3,4,5,6};
+    private int currRandomIndex;
 
 
     void Awake()
     {
       CreatePiece();
+      currRandomIndex = 7;
     }
 
     void OnEnable()
@@ -47,8 +55,7 @@ public class GameFlowManager : MonoBehaviour
     */
     private void CreatePiece()
     {
-      int index = (int) Mathf.Floor(Random.Range(0,7));
-
+      int index = GetRandomPiece();
       activePieceInstance = (GameObject)AssetDatabase.LoadAssetAtPath(Constants.tetriminoPrefabs[index], typeof(GameObject)) ;
       activePieceInstance = Instantiate(activePieceInstance);
       controller = activePieceInstance.GetComponent<ActivePieceController>();
@@ -57,7 +64,7 @@ public class GameFlowManager : MonoBehaviour
     }
 /*
 function to destroy active piece, once it stops.
-Whenever a piece stops, immediately create a new one. 
+Whenever a piece stops, immediately create a new one.
 */
     public void StopPiece()
     {
@@ -67,6 +74,20 @@ Whenever a piece stops, immediately create a new one.
       controller.OnDisable();
       Destroy(activePieceInstance);
       CreatePiece();
+
+    }
+    private int GetRandomPiece()
+    {
+      int returnVal = 0;
+      if(currRandomIndex == 7)
+      {
+            Random random = new Random();
+            randomIndexList = randomIndexList.OrderBy(x => random.Next()).ToArray();
+            currRandomIndex = 0;
+      }
+      returnVal = randomIndexList[currRandomIndex];
+      currRandomIndex++;
+      return returnVal;
 
     }
   }

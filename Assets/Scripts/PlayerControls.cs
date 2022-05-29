@@ -99,6 +99,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HardDrop"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ca0708d-54d2-4af8-a054-d7dcfff001b5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -156,6 +165,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""HoldPiece"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""613487f5-8584-4cce-838d-0346eef181b3"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""HardDrop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -184,6 +204,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_gameplay_MoveLeft = m_gameplay.FindAction("MoveLeft", throwIfNotFound: true);
         m_gameplay_MoveRight = m_gameplay.FindAction("MoveRight", throwIfNotFound: true);
         m_gameplay_HoldPiece = m_gameplay.FindAction("HoldPiece", throwIfNotFound: true);
+        m_gameplay_HardDrop = m_gameplay.FindAction("HardDrop", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -281,6 +302,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_gameplay_MoveLeft;
     private readonly InputAction m_gameplay_MoveRight;
     private readonly InputAction m_gameplay_HoldPiece;
+    private readonly InputAction m_gameplay_HardDrop;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -290,6 +312,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @MoveLeft => m_Wrapper.m_gameplay_MoveLeft;
         public InputAction @MoveRight => m_Wrapper.m_gameplay_MoveRight;
         public InputAction @HoldPiece => m_Wrapper.m_gameplay_HoldPiece;
+        public InputAction @HardDrop => m_Wrapper.m_gameplay_HardDrop;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -314,6 +337,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @HoldPiece.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHoldPiece;
                 @HoldPiece.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHoldPiece;
                 @HoldPiece.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHoldPiece;
+                @HardDrop.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHardDrop;
+                @HardDrop.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHardDrop;
+                @HardDrop.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHardDrop;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -333,6 +359,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @HoldPiece.started += instance.OnHoldPiece;
                 @HoldPiece.performed += instance.OnHoldPiece;
                 @HoldPiece.canceled += instance.OnHoldPiece;
+                @HardDrop.started += instance.OnHardDrop;
+                @HardDrop.performed += instance.OnHardDrop;
+                @HardDrop.canceled += instance.OnHardDrop;
             }
         }
     }
@@ -357,5 +386,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnMoveLeft(InputAction.CallbackContext context);
         void OnMoveRight(InputAction.CallbackContext context);
         void OnHoldPiece(InputAction.CallbackContext context);
+        void OnHardDrop(InputAction.CallbackContext context);
     }
 }

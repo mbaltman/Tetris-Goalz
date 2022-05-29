@@ -20,6 +20,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     private bool moveRight_b = false;
     private bool rotateRight_b = false;
     private bool rotateLeft_b = false;
+    private bool hardDrop_b = false;
     private int counter = 0;
     private int index;
     InputAction action;
@@ -101,6 +102,16 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
         rotateRight_b = false;
       }
 
+      if(hardDrop_b)
+      {
+        while(gameBoardManager.CheckMoveDown(transform.position, pieceMatrix))
+        {
+          transform.position = transform.position + new Vector3(0f,-1f,0f);
+        }
+        hardDrop_b = false; 
+
+      }
+
       if( counter ==interval)
       {
         if(gameBoardManager.CheckMoveDown(transform.position, pieceMatrix))
@@ -109,6 +120,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
         }
           counter = 0;
       }
+
 
 
       counter++;
@@ -153,6 +165,14 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     }
     public void OnHoldPiece(InputAction.CallbackContext value)
     {
+    }
+
+    public void OnHardDrop(InputAction.CallbackContext value)
+    {
+      if(value.started)
+      {
+        hardDrop_b = true;
+      }
     }
 
     //check if piece has stopped moving long enough, that it should lock into place.
