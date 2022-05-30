@@ -1,9 +1,8 @@
 # Tetris-Goalz
 Custom version of Tetris, made in Unity
-* Overview
-{:toc}
 
-### Table of Contents
+
+## Table of Contents
 **[Overview](#Overview)**<br>
 **[ClassDesign](#ClassDesign)**<br>
 **[Randomization](#Randomization)**<br>
