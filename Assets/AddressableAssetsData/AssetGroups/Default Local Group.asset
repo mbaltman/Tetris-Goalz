@@ -89,6 +89,34 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/T.Square.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e87b865652ee665498dc12fb3284b57c
+    m_Address: Assets/Art/Tetriminos/I.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6aabad31d75a74a47821d0fdf9246801
+    m_Address: Assets/Art/Tetriminos/J.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 14c7b416c3b285c4bb09b6728d6fd3f9
+    m_Address: Assets/Art/Tetriminos/L.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 518d78c0e66ee324b9af66b577015d07
+    m_Address: Assets/Art/Tetriminos/O.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 53da2f93130839f42a49b8b7edb52d80
+    m_Address: Assets/Art/Tetriminos/S.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 03341bdd64278d34d9072bdbd668f9f6
+    m_Address: Assets/Art/Tetriminos/T.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 251bdbab3ef98794682a075de7356b67
+    m_Address: Assets/Art/Tetriminos/Z.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 718a0f24ac9c0524c910d05e89076e32, type: 2}
   m_SchemaSet:

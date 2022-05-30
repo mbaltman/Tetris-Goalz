@@ -80,4 +80,21 @@ public static string[] tilePrefabs = {"Assets/Prefabs/I.square.prefab",
                                       "Assets/Prefabs/T.square.prefab",
                                       "Assets/Prefabs/Z.square.prefab"
                                       };
+
+public static string[] tetriminoSprites = {"Assets/Art/Tetriminos/I.png",
+                                           "Assets/Art/Tetriminos/J.png",
+                                           "Assets/Art/Tetriminos/L.png",
+                                           "Assets/Art/Tetriminos/O.png",
+                                           "Assets/Art/Tetriminos/S.png",
+                                           "Assets/Art/Tetriminos/T.png",
+                                           "Assets/Art/Tetriminos/Z.png"};
+
+public static float [,] tetriminoSignCoordinates = {{0.07f,-3f},
+                                                      {0f, -4f},
+                                                      {0.07f, -3.15f},
+                                                      {0f,-3.5f},
+                                                      {0f,-4f},
+                                                      {0f,-3.15f},
+                                                      {0f,-4f}
+                                                    };
 }

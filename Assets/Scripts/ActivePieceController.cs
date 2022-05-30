@@ -29,7 +29,8 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
 
 
     public delegate void ActivePieceDelegate();
-    public event ActivePieceDelegate OnStop;
+    public event ActivePieceDelegate OnHitBottom;
+    public event ActivePieceDelegate OnHold;
 
     public void Setup(int [,] currPieceMatrix, int currIndex)
     {
@@ -53,11 +54,6 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     public void OnDisable()
     {
       userInput.gameplay.Disable();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 
     // Update is called once per frame
@@ -108,7 +104,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
         {
           transform.position = transform.position + new Vector3(0f,-1f,0f);
         }
-        hardDrop_b = false; 
+        hardDrop_b = false;
 
       }
 
@@ -125,12 +121,6 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
 
       counter++;
       CheckLockDelay();
-    }
-
-    void Update()
-    {
-
-
     }
 
     public void OnMoveRight(InputAction.CallbackContext value)
@@ -165,6 +155,10 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     }
     public void OnHoldPiece(InputAction.CallbackContext value)
     {
+      if(OnHold != null)
+      {
+        OnHold();
+      }
     }
 
     public void OnHardDrop(InputAction.CallbackContext value)
@@ -191,11 +185,11 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       //if this is true, then the piece has stopped moving, and reached the end of its life cycle
       if(stoppedTime > Constants.lockTime )
       {
-        if(OnStop != null)
+        if(OnHitBottom != null)
         {
           gameBoardManager.SavePieceToBackground(transform.position, pieceMatrix, index);
           gameBoardManager.CheckForClearedLines(transform.position, pieceMatrix);
-          OnStop();
+          OnHitBottom();
         }
       }
     }
