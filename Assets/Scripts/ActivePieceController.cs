@@ -166,12 +166,30 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       if(value.started)
       {
         hardDrop_b = true;
+        stoppedTime = Constants.lockTime + 0.1f;
+
       }
     }
 
     //check if piece has stopped moving long enough, that it should lock into place.
     private void CheckLockDelay()
     {
+
+
+      //if this is true, then the piece has stopped moving, and reached the end of its life cycle
+      if(stoppedTime > Constants.lockTime )
+      {
+        if(OnHitBottom != null)
+        {
+          if(gameBoardManager.SavePieceToBackground(transform.position, pieceMatrix, index) == 1)
+          {
+            gameBoardManager.CheckForClearedLines(transform.position, pieceMatrix);
+            OnHitBottom();
+          }
+        }
+      }
+
+      
       if(transform.position.y < lowestPoint)
       {
         lowestPoint = transform.position.y;
@@ -180,17 +198,6 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       else
       {
         stoppedTime += Time.fixedDeltaTime;
-      }
-
-      //if this is true, then the piece has stopped moving, and reached the end of its life cycle
-      if(stoppedTime > Constants.lockTime )
-      {
-        if(OnHitBottom != null)
-        {
-          gameBoardManager.SavePieceToBackground(transform.position, pieceMatrix, index);
-          gameBoardManager.CheckForClearedLines(transform.position, pieceMatrix);
-          OnHitBottom();
-        }
       }
     }
 }

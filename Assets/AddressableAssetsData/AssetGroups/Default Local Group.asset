@@ -69,52 +69,20 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/ZPiece.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: cbdfd7b0b6d9093448250db567e308ff
-    m_Address: Assets/Prefabs/J.Square.prefab
+  - m_GUID: 210c9f45506ee554c8f0e7827b0f07dc
+    m_Address: Assets/Prefabs/ActiveSquareBase.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: c2f0d5bfaf3b0e84cbaff3b4f531d41e
-    m_Address: Assets/Prefabs/L.Square.prefab
+  - m_GUID: 542c09229e94eb644871e8ae292f0b8a
+    m_Address: Assets/Art/Tiles
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 7ce242d936ba6f44ba7cc7093d0ee696
-    m_Address: Assets/Prefabs/O.Square.prefab
+  - m_GUID: befecc1e6b385674bbb5c2400d1ea595
+    m_Address: Assets/Art/Tetriminos
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 2e7eacc9408634e43af5de70253237d4
-    m_Address: Assets/Prefabs/S.Square.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: daed717f4c1890b4fad90820374d547a
-    m_Address: Assets/Prefabs/T.Square.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e87b865652ee665498dc12fb3284b57c
-    m_Address: Assets/Art/Tetriminos/I.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 6aabad31d75a74a47821d0fdf9246801
-    m_Address: Assets/Art/Tetriminos/J.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 14c7b416c3b285c4bb09b6728d6fd3f9
-    m_Address: Assets/Art/Tetriminos/L.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 518d78c0e66ee324b9af66b577015d07
-    m_Address: Assets/Art/Tetriminos/O.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 53da2f93130839f42a49b8b7edb52d80
-    m_Address: Assets/Art/Tetriminos/S.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 03341bdd64278d34d9072bdbd668f9f6
-    m_Address: Assets/Art/Tetriminos/T.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 251bdbab3ef98794682a075de7356b67
-    m_Address: Assets/Art/Tetriminos/Z.png
+  - m_GUID: 8d6f0a228cf81bd49bc26704fb84a9a5
+    m_Address: Assets/Prefabs/ActivePieces
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

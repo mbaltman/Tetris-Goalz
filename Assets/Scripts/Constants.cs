@@ -9,6 +9,7 @@ public class Constants
     public static int boardWidth = 10;
     public static int boardHeight = 20;
     public static int boardExtraHeight =3;
+    public static Color shadowColor = new Color();
 
     //in order to make sure matrices are accessed via col, row, aka x,y. each entry in this matrix, is a column.
     public static int [,] initialGameBoard = {{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},

@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 
 using static Constants;
 using Random = System.Random;
+using Object = UnityEngine.Object;
 
 
 /*
@@ -21,6 +22,7 @@ public class GameFlowManager : MonoBehaviour
 
     private GameObject activePieceInstance;
     private ActivePieceController controller;
+    public GameObject [] activePiecePrefabs;
     private int [] randomIndexList = { 0,1,2,3,4,5,6};
     private int currRandomIndex;
     private bool canHold;
@@ -41,7 +43,6 @@ public class GameFlowManager : MonoBehaviour
       currPieceIndex = GetRandomPiece();
       nextPieceIndex = GetRandomPiece();
       CreatePiece();
-
     }
 
     void Start()
@@ -58,12 +59,12 @@ public class GameFlowManager : MonoBehaviour
     */
     private void CreatePiece()
     {
-      activePieceInstance = (GameObject)AssetDatabase.LoadAssetAtPath(Constants.tetriminoPrefabs[currPieceIndex], typeof(GameObject)) ;
-      activePieceInstance = Instantiate(activePieceInstance);
+      activePieceInstance = Instantiate(activePiecePrefabs[currPieceIndex]);
       controller = activePieceInstance.GetComponent<ActivePieceController>();
       controller.Setup(Constants.tetriminoMatrices[currPieceIndex], currPieceIndex);
       controller.OnHitBottom += StopPiece;
       controller.OnHold += HoldPiece;
+      GameObject.Find("Grid").GetComponent<GameBoardManager>().GameOver += EndGame;
     }
 /*
 function to destroy active piece, once it stops.
@@ -136,5 +137,9 @@ Whenever a piece stops, immediately create a new one.
         CreatePiece();
 
       }
+    }
+    private void EndGame()
+    {
+      controller.enabled=false;
     }
   }

@@ -12,24 +12,25 @@ It does not do any of the actual movement, it just monitors and reports on the s
 */
 public class GameBoardManager : MonoBehaviour
 {
+    public Sprite [] tileSpries;
     public int [,] availabilityGrid;
     private GameObject backgroundTilePlaceholder;
+    private GameObject currTile;
 
-    public delegate void GameBoardDelegate(int row);
-    public event GameBoardDelegate ClearLine;
+    public delegate void ClearLineDelegate(int row);
+    public event ClearLineDelegate ClearLine;
 
-    // Start is called before the first frame update
-    void Start()
+    public delegate void GameOverDelegate();
+    public event GameOverDelegate GameOver;
+
+
+
+    void Awake()
     {
+      backgroundTilePlaceholder = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/ActiveSquareBase.prefab", typeof(GameObject)) ;
       availabilityGrid = Constants.initialGameBoard;
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public bool CheckRotationLeft(Vector3 position, Matrix pieceMatrix )
     {
@@ -70,7 +71,7 @@ public class GameBoardManager : MonoBehaviour
     {
       Vector3 matrixPosition = pieceMatrix.GetCenter();
       int [,] matrix = pieceMatrix.GetMatrix();
-      string msg;
+      //string msg;
       Vector3 currPosition = new Vector3(0f,0f,0f);
       //scan to see if rotated Matrix overlaps with anything,
       for (int row = 0; row < Constants.tetriminoHeight; row++)
@@ -84,14 +85,14 @@ public class GameBoardManager : MonoBehaviour
           {
             if( currPosition.x < 0 || currPosition.x >Constants.boardWidth || currPosition.y <0 || currPosition.y > Constants.boardHeight + Constants.boardExtraHeight )
             {
-              msg = "conflict found at point x " + currPosition.x + "y " + currPosition.y;
-              Debug.Log(msg);
+              //msg = "conflict found at point x " + currPosition.x + "y " + currPosition.y;
+              //Debug.Log(msg);
               return false;
             }
             else if (availabilityGrid[(int)currPosition.x, (int)currPosition.y] >0 )
             {
-              msg = "conflict found at point x " + currPosition.x + "y " + currPosition.y;
-              Debug.Log(msg);
+              //msg = "conflict found at point x " + currPosition.x + "y " + currPosition.y;
+              //Debug.Log(msg);
               return false;
             }
           }
@@ -120,13 +121,13 @@ public class GameBoardManager : MonoBehaviour
       for ( int row =0; row < Constants.tetriminoHeight; row ++ )
       {
         complete = true;
-        msg ="complete line";
+      //  msg ="complete line";
         for( int col = 0; col < Constants.boardWidth; col ++)
         {
           if(availabilityGrid[col, row+(int)currPosition.y] == 0)
           {
             complete = false;
-            msg = "incomplete line";
+          //  msg = "incomplete line";
             break;
           }
         }
@@ -134,7 +135,7 @@ public class GameBoardManager : MonoBehaviour
         {
           if(ClearLine != null)
           {
-            Debug.Log("clear line: "+ (row+(int)currPosition.y) );
+            //Debug.Log("clear line: "+ (row+(int)currPosition.y) );
             ClearLine(row+(int)currPosition.y);
             linesToClear.Add(row+(int)currPosition.y);
           }
@@ -169,8 +170,10 @@ public class GameBoardManager : MonoBehaviour
     /*
     when a piece stops moving, it invokes this method. This allows the piece to be saved to the background
     and be marked off in the availabilityGrid
+    retruns 1 when piece saves to background successfully
+    returns -1 when game ends
     */
-    public void SavePieceToBackground(Vector3 position, Matrix pieceMatrix, int index)
+    public int SavePieceToBackground(Vector3 position, Matrix pieceMatrix, int index)
     {
       int [,] matrix = pieceMatrix.GetMatrix();
       Vector3 matrixPosition = pieceMatrix.GetCenter();
@@ -184,13 +187,20 @@ public class GameBoardManager : MonoBehaviour
           {
             currPosition.x = (position.x  + col) - matrixPosition.x;
             currPosition.y = (position.y  + row) - matrixPosition.y;
+            if(currPosition.y> Constants.boardHeight)
+            {
+              GameOver();
+              return -1;
+            }
 
             availabilityGrid[(int)currPosition.x,(int)currPosition.y ] = 1;
-            backgroundTilePlaceholder = (GameObject)AssetDatabase.LoadAssetAtPath(Constants.tilePrefabs[index], typeof(GameObject)) ;
-            Instantiate(backgroundTilePlaceholder, currPosition, Quaternion.identity);
+
+            currTile = Instantiate(backgroundTilePlaceholder, currPosition, Quaternion.identity);
+            currTile.GetComponent<SpriteRenderer>().sprite = tileSpries[index];
           }
         }
       }
+      return 1;
 
     }
 

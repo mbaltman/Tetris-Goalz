@@ -10,6 +10,7 @@ public class SignController : MonoBehaviour
     public string pieceName;
     GameObject piece;
     SpriteRenderer pieceRenderer;
+    public Sprite [] tetriminoSprites;
 
     void Awake()
     {
@@ -22,9 +23,9 @@ public class SignController : MonoBehaviour
     {
       if(currPiece == pieceName)
       {
-        pieceRenderer.sprite = (Sprite)AssetDatabase.LoadAssetAtPath(Constants.tetriminoSprites[index], typeof(Sprite));
+        pieceRenderer.sprite = tetriminoSprites[index];
         piece.transform.localPosition = new Vector3(Constants.tetriminoSignCoordinates[index, 0], Constants.tetriminoSignCoordinates[index, 1], 0f);
-        
+
       }
     }
 }
