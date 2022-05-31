@@ -13,7 +13,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     public float startX;
     public float startY;
 
-    public int interval = 1;
+    public int interval;
     private float stoppedTime;
     private float lowestPoint;
     private bool moveLeft_b = false;
@@ -24,7 +24,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     private int counter = 0;
     private int index;
     InputAction action;
-    Matrix pieceMatrix;
+    public Matrix pieceMatrix;
     GameBoardManager gameBoardManager;
 
 
@@ -37,6 +37,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       pieceMatrix = new Matrix(currPieceMatrix);
       index = currIndex;
     }
+
     public void OnEnable()
     {
       if(userInput == null)
@@ -171,6 +172,22 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       }
     }
 
+    public void OnFastDrop(InputAction.CallbackContext value)
+    {
+      if(value.started)
+      {
+        counter = 0; 
+        Debug.Log("started Fast Drop");
+        interval  = interval /2;
+      }
+      if(value.canceled)
+      {
+        Debug.Log("stopped Fast Drop");
+        interval  = interval *2;
+      }
+      Debug.Log("curr interval " + interval);
+    }
+
     //check if piece has stopped moving long enough, that it should lock into place.
     private void CheckLockDelay()
     {
@@ -189,7 +206,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
         }
       }
 
-      
+
       if(transform.position.y < lowestPoint)
       {
         lowestPoint = transform.position.y;

@@ -235,6 +235,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4470453421872687088, guid: 67e80e6a12526d642b60865a524e36cc,
+        type: 3}
+      propertyPath: m_Name
+      value: HoldPiece
+      objectReference: {fileID: 0}
     - target: {fileID: 4470453423254700368, guid: 67e80e6a12526d642b60865a524e36cc,
         type: 3}
       propertyPath: pieceName
@@ -435,7 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activePiecePrefabs:
-  - {fileID: 6062519648647348743, guid: bdb948b2c13fcd44e852abf0be64f305, type: 3}
+  - {fileID: 4018589631638609343, guid: bdb948b2c13fcd44e852abf0be64f305, type: 3}
   - {fileID: 4643646011284156989, guid: 95d21eac210deac41a2a35ef2c0950ac, type: 3}
   - {fileID: 210223913827565371, guid: 209e0a5901913e34f8b2b31a51aa6715, type: 3}
   - {fileID: 7812490199991740542, guid: cb33dc0a3aae3cc48994270df59d765e, type: 3}
