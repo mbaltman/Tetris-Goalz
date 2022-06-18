@@ -25,7 +25,8 @@ public class SignController : MonoBehaviour
       {
         pieceRenderer.sprite = tetriminoSprites[index];
         piece.transform.localPosition = new Vector3(Constants.tetriminoSignCoordinates[index, 0], Constants.tetriminoSignCoordinates[index, 1], 0f);
-
+        GetComponent<Animator>().Play("SignSwinging");
       }
+
     }
 }

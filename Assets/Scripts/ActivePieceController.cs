@@ -23,6 +23,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     private bool hardDrop_b = false;
     private int counter = 0;
     private int index;
+    private bool fastDropActive;
     InputAction action;
     public Matrix pieceMatrix;
     GameBoardManager gameBoardManager;
@@ -50,6 +51,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       gameBoardManager = GameObject.Find("Grid").GetComponent<GameBoardManager>();
       transform.position = new Vector3(startX,startY,0f);
       lowestPoint = transform.position.y;
+      fastDropActive = false;
     }
 
     public void OnDisable()
@@ -109,7 +111,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
 
       }
 
-      if( counter ==interval)
+      if( counter >=interval || ( fastDropActive && counter >= interval/2))
       {
         if(gameBoardManager.CheckMoveDown(transform.position, pieceMatrix))
         {
@@ -117,8 +119,6 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
         }
           counter = 0;
       }
-
-
 
       counter++;
       CheckLockDelay();
@@ -176,14 +176,14 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     {
       if(value.started)
       {
-        counter = 0; 
+        fastDropActive = true;
         Debug.Log("started Fast Drop");
-        interval  = interval /2;
+
       }
       if(value.canceled)
       {
         Debug.Log("stopped Fast Drop");
-        interval  = interval *2;
+        fastDropActive = false;
       }
       Debug.Log("curr interval " + interval);
     }
