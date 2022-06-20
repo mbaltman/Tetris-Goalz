@@ -20,6 +20,9 @@ public class GameBoardManager : MonoBehaviour
     public delegate void ClearLineDelegate(int row);
     public event ClearLineDelegate ClearLine;
 
+    public delegate void ScoreLinesDelegate(int numLines);
+    public event ScoreLinesDelegate ScoreLines;
+
     public delegate void GameOverDelegate();
     public event GameOverDelegate GameOver;
 
@@ -138,6 +141,7 @@ public class GameBoardManager : MonoBehaviour
             //Debug.Log("clear line: "+ (row+(int)currPosition.y) );
             ClearLine(row+(int)currPosition.y);
             linesToClear.Add(row+(int)currPosition.y);
+            numLines++;
           }
         }
         Debug.Log(msg);
@@ -149,6 +153,11 @@ public class GameBoardManager : MonoBehaviour
       {
         DeleteRow(row-offset);
         offset++;
+      }
+      //NotifyScoreManager
+      if(ScoreLines != null)
+      {
+        ScoreLines(numLines);
       }
     }
 
