@@ -74,7 +74,7 @@ public class GameBoardManager : MonoBehaviour
     {
       Vector3 matrixPosition = pieceMatrix.GetCenter();
       int [,] matrix = pieceMatrix.GetMatrix();
-      //string msg;
+      string msg;
       Vector3 currPosition = new Vector3(0f,0f,0f);
       //scan to see if rotated Matrix overlaps with anything,
       for (int row = 0; row < Constants.tetriminoHeight; row++)
@@ -88,8 +88,6 @@ public class GameBoardManager : MonoBehaviour
           {
             if( currPosition.x < 0 || currPosition.x >Constants.boardWidth || currPosition.y <0 || currPosition.y > Constants.boardHeight + Constants.boardExtraHeight )
             {
-              //msg = "conflict found at point x " + currPosition.x + "y " + currPosition.y;
-              //Debug.Log(msg);
               return false;
             }
             else if (availabilityGrid[(int)currPosition.x, (int)currPosition.y] >0 )
@@ -117,6 +115,7 @@ public class GameBoardManager : MonoBehaviour
       bool complete = false;
       string msg = "";
       List<int> linesToClear = new List<int>();
+      int numLines = 0;
 
       //adjust highest y line
       currPosition.y = position.y  - matrixPosition.y;

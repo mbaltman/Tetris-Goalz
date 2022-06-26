@@ -39,7 +39,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       index = currIndex;
     }
 
-    public void OnEnable()
+    void OnEnable()
     {
       if(userInput == null)
       {
@@ -47,6 +47,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
 
         userInput.gameplay.SetCallbacks(this);
       }
+      Debug.Log("Enable GAME");
       userInput.gameplay.Enable();
       gameBoardManager = GameObject.Find("Grid").GetComponent<GameBoardManager>();
       transform.position = new Vector3(startX,startY,0f);
@@ -56,6 +57,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
 
     public void OnDisable()
     {
+      Debug.Log("Disable GAME");
       userInput.gameplay.Disable();
     }
 
@@ -201,7 +203,9 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
           if(gameBoardManager.SavePieceToBackground(transform.position, pieceMatrix, index) == 1)
           {
             gameBoardManager.CheckForClearedLines(transform.position, pieceMatrix);
+            Debug.Log("Hit the Bottom");
             OnHitBottom();
+
           }
         }
       }
