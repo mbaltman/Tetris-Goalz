@@ -141,6 +141,7 @@ Whenever a piece stops, immediately create a new one.
     }
     private void EndGame()
     {
+      Debug.Log("ENDGAME");
       controller.enabled=false;
     }
   }

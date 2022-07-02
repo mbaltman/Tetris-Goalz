@@ -47,7 +47,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
 
         userInput.gameplay.SetCallbacks(this);
       }
-      Debug.Log("Enable GAME");
+      Debug.Log("Enable Piece");
       userInput.gameplay.Enable();
       gameBoardManager = GameObject.Find("Grid").GetComponent<GameBoardManager>();
       transform.position = new Vector3(startX,startY,0f);
@@ -57,7 +57,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
 
     public void OnDisable()
     {
-      Debug.Log("Disable GAME");
+      Debug.Log("Disable Piece");
       userInput.gameplay.Disable();
     }
 

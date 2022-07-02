@@ -183,6 +183,7 @@ public class GameBoardManager : MonoBehaviour
     */
     public int SavePieceToBackground(Vector3 position, Matrix pieceMatrix, int index)
     {
+      Debug.Log("SavePieceToBackground");
       int [,] matrix = pieceMatrix.GetMatrix();
       Vector3 matrixPosition = pieceMatrix.GetCenter();
       Vector3 currPosition = new Vector3(0f,0f,0f);
@@ -197,6 +198,7 @@ public class GameBoardManager : MonoBehaviour
             currPosition.y = (position.y  + row) - matrixPosition.y;
             if(currPosition.y> Constants.boardHeight)
             {
+              Debug.Log("GAMEOVER");
               GameOver();
               return -1;
             }
