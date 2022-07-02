@@ -7,7 +7,9 @@ Custom version of Tetris, made in Unity
 **[ClassDesign](#ClassDesign)**<br>
 **[Randomization](#Randomization)**<br>
 **[BoundaryChecking](#BoundaryChecking)**<br>
+**[RotationandKickbacks](#RotationandKickbacks)**<br>
 **[ArtAndAnimation](#ArtAndAnimation)**<br>
+
 
 
 
@@ -15,4 +17,5 @@ Custom version of Tetris, made in Unity
 ## ClassDesign
 ## Randomization
 ## BoundaryChecking 
+## RotationandKickbacks
 ## ArtAndAnimation
