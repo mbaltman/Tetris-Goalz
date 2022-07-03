@@ -12,12 +12,14 @@ https://www.cyotek.com/blog/rotating-an-array-using-csharp
 public class Matrix
 {
     private int [,] matrix_a;
+    private int pieceIndex;
 
-    public Matrix( int [,] initialMatrix)
+    public Matrix( int index)
     {
-      if(initialMatrix.GetLength(0) == Constants.tetriminoHeight && initialMatrix.GetLength(1) == Constants.tetriminoWidth)
+      if(index >= 0 && index < 7 )
       {
-        matrix_a = initialMatrix;
+        matrix_a = Constants.tetriminoMatrices[index];
+        pieceIndex = index;
       }
       else
       {

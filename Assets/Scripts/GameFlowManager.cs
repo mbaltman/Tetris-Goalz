@@ -19,9 +19,11 @@ pieces are create and destroyed
 public class GameFlowManager : MonoBehaviour
 {
 
-
+    // objects instantiaded within this script.
     private GameObject activePieceInstance;
     private ActivePieceController controller;
+    private ScoreManager scoreManager;
+
     public GameObject [] activePiecePrefabs;
     private int [] randomIndexList = { 0,1,2,3,4,5,6};
     private int currRandomIndex;
@@ -43,6 +45,7 @@ public class GameFlowManager : MonoBehaviour
       currPieceIndex = GetRandomPiece();
       nextPieceIndex = GetRandomPiece();
       CreatePiece();
+      scoreManager = GameObject.Find("ScoreSign").GetComponent<ScoreManager>();
     }
 
     void Start()
@@ -61,7 +64,7 @@ public class GameFlowManager : MonoBehaviour
     {
       activePieceInstance = Instantiate(activePiecePrefabs[currPieceIndex]);
       controller = activePieceInstance.GetComponent<ActivePieceController>();
-      controller.Setup(Constants.tetriminoMatrices[currPieceIndex], currPieceIndex);
+      controller.Setup(currPieceIndex);
       controller.OnHitBottom += StopPiece;
       controller.OnHold += HoldPiece;
       GameObject.Find("Grid").GetComponent<GameBoardManager>().GameOver += EndGame;
@@ -73,6 +76,7 @@ Whenever a piece stops, immediately create a new one.
     public void StopPiece()
     {
       Debug.Log( "On Stop event Recieved");
+      scoreManager.ScoreLines(controller.linesCleared, 1);
 
       RemovePiece();
       currPieceIndex =nextPieceIndex;

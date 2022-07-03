@@ -30,10 +30,10 @@ public class Constants
                                       {0,0,0,0}};
 
 
-      public static int [,] lMatrix ={{0,1,1,0},
-                                      {0,0,2,0},
-                                      {0,0,1,0},
-                                      {0,0,0,0}};
+      public static int [,] lMatrix ={{0,0,0,0},
+                                      {0,1,0,0},
+                                      {0,2,0,0},
+                                      {0,1,1,0}};
 
       public static int [,] oMatrix ={{0,0,0,0},
                                       {0,1,1,0},
@@ -45,20 +45,20 @@ public class Constants
                                       {0,0,1,0},
                                       {0,0,0,0}};
 
-      public static int [,] iMatrix ={{0,1,0,0},
-                                      {0,1,0,0},
-                                      {0,1,0,0},
-                                      {0,1,0,0}};
+      public static int [,] iMatrix ={{0,0,1,0},
+                                      {0,0,1,0},
+                                      {0,0,1,0},
+                                      {0,0,1,0}};
 
       public static int [,] zMatrix ={{0,0,1,0},
                                       {0,2,1,0},
                                       {0,1,0,0},
                                       {0,0,0,0}};
 
-      public static int [,] tMatrix ={{0,0,1,0},
-                                      {0,1,2,0},
-                                      {0,0,1,0},
-                                      {0,0,0,0}};
+      public static int [,] tMatrix ={{0,0,0,0},
+                                      {0,1,0,0},
+                                      {0,2,1,0},
+                                      {0,1,0,0}};
 
       public static int [][ , ] tetriminoMatrices = {iMatrix, jMatrix, lMatrix, oMatrix, sMatrix, tMatrix, zMatrix};
 
@@ -90,7 +90,7 @@ public static string[] tetriminoSprites = {"Assets/Art/Tetriminos/I.png",
                                            "Assets/Art/Tetriminos/T.png",
                                            "Assets/Art/Tetriminos/Z.png"};
 
-public static float [,] tetriminoSignCoordinates = {{0.07f,-3f},
+public static float [,] tetriminoSignCoordinates = {{0.07f,-4f},
                                                       {0f, -4f},
                                                       {0.07f, -3.15f},
                                                       {0f,-3.5f},
@@ -98,4 +98,5 @@ public static float [,] tetriminoSignCoordinates = {{0.07f,-3f},
                                                       {0f,-3.15f},
                                                       {0f,-4f}
                                                     };
+
 }

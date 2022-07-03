@@ -20,9 +20,6 @@ public class GameBoardManager : MonoBehaviour
     public delegate void ClearLineDelegate(int row);
     public event ClearLineDelegate ClearLine;
 
-    public delegate void ScoreLinesDelegate(int numLines);
-    public event ScoreLinesDelegate ScoreLines;
-
     public delegate void GameOverDelegate();
     public event GameOverDelegate GameOver;
 
@@ -35,17 +32,33 @@ public class GameBoardManager : MonoBehaviour
     }
 
 
-    public bool CheckRotationLeft(Vector3 position, Matrix pieceMatrix )
+    // returns -1 if impossible and returns index into kickback list if it worked
+    public int CheckRotationLeft(Vector3 position, Matrix pieceMatrix, List<Vector2> kickbacks)
     {
+      Debug.Log("checking rotation left");
       Matrix rotated = new Matrix(pieceMatrix);
       rotated.RotateLeft();
-      return CheckAvailability(position, rotated);
+      for ( int i = 0;  i< kickbacks.Count; i++)
+      {
+        Debug.Log("index: " + i);
+        Vector2 currKickback = kickbacks[i];
+        if(CheckAvailability(new Vector3(position.x + currKickback.x,position.y + currKickback.y,0), rotated))
+          return i;
+      }
+      return -1;
     }
-    public bool CheckRotationRight(Vector3 position, Matrix pieceMatrix)
+    public int CheckRotationRight(Vector3 position, Matrix pieceMatrix, List<Vector2> kickbacks)
     {
       Matrix rotated = new Matrix(pieceMatrix);
       rotated.RotateRight();
-      return CheckAvailability(position, rotated);
+      for ( int i = 0;  i< kickbacks.Count; i++)
+      {
+        Debug.Log("index: " + i);
+        Vector2 currKickback = kickbacks[i];
+        if(CheckAvailability(new Vector3(position.x + currKickback.x,position.y + currKickback.y,0), rotated))
+          return i;
+      }
+      return -1;
     }
 
     public bool CheckMoveDown(Vector3 position, Matrix pieceMatrix)
@@ -74,7 +87,7 @@ public class GameBoardManager : MonoBehaviour
     {
       Vector3 matrixPosition = pieceMatrix.GetCenter();
       int [,] matrix = pieceMatrix.GetMatrix();
-      string msg;
+      //string msg;
       Vector3 currPosition = new Vector3(0f,0f,0f);
       //scan to see if rotated Matrix overlaps with anything,
       for (int row = 0; row < Constants.tetriminoHeight; row++)
@@ -107,13 +120,15 @@ public class GameBoardManager : MonoBehaviour
     /*
     CheckForClearedLines scans the four lines that may have been cleared by the most recent piece dropping
     and if necessary, invokes the function to remove those lines.
+
+    returns number of lines cleared
     */
-    public void CheckForClearedLines(Vector3 position, Matrix pieceMatrix)
+    public int CheckForClearedLines(Vector3 position, Matrix pieceMatrix)
     {
       Vector3 matrixPosition = pieceMatrix.GetCenter();
       Vector3 currPosition = new Vector3(0f,0f,0f);
       bool complete = false;
-      string msg = "";
+      //string msg = "";
       List<int> linesToClear = new List<int>();
       int numLines = 0;
 
@@ -143,21 +158,17 @@ public class GameBoardManager : MonoBehaviour
             numLines++;
           }
         }
-        Debug.Log(msg);
+
+        //Debug.Log(msg);
 
       }
-
       int offset = 0;
       foreach( int row in linesToClear)
       {
         DeleteRow(row-offset);
         offset++;
       }
-      //NotifyScoreManager
-      if(ScoreLines != null)
-      {
-        ScoreLines(numLines);
-      }
+      return numLines;
     }
 
     public void DeleteRow(int rowCleared)

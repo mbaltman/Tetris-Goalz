@@ -12,8 +12,11 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     public PlayerControls userInput;
     public float startX;
     public float startY;
-
+    public int linesCleared;
     public int interval;
+    public int state;
+    //tracks current position , 0 = spawn, 1 = right of spawn, 2 = 180 of spawn, 3 = left of spawn
+
     private float stoppedTime;
     private float lowestPoint;
     private bool moveLeft_b = false;
@@ -24,19 +27,20 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     private int counter = 0;
     private int index;
     private bool fastDropActive;
-    InputAction action;
+    private InputAction action;
     public Matrix pieceMatrix;
-    GameBoardManager gameBoardManager;
+    private GameBoardManager gameBoardManager;
 
 
     public delegate void ActivePieceDelegate();
     public event ActivePieceDelegate OnHitBottom;
     public event ActivePieceDelegate OnHold;
 
-    public void Setup(int [,] currPieceMatrix, int currIndex)
+    public void Setup( int currIndex)
     {
-      pieceMatrix = new Matrix(currPieceMatrix);
+      pieceMatrix = new Matrix(currIndex);
       index = currIndex;
+      linesCleared = 0;
     }
 
     void OnEnable()
@@ -53,6 +57,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       transform.position = new Vector3(startX,startY,0f);
       lowestPoint = transform.position.y;
       fastDropActive = false;
+      state =0;
     }
 
     public void OnDisable()
@@ -64,6 +69,9 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     // Update is called once per frame
     void FixedUpdate()
     {
+      int nextState = 0;
+      List<Vector2> kickbacks = new List<Vector2>();
+      int kickbackIndex = -1;
 
       if(moveLeft_b)
       {
@@ -85,22 +93,33 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
 
       if(rotateLeft_b)
       {
-        if(gameBoardManager.CheckRotationLeft(transform.position, pieceMatrix))
+        nextState = NextState(state, "left");
+        kickbacks = GetKickbacks(state, nextState);
+        if((kickbackIndex = gameBoardManager.CheckRotationLeft(transform.position, pieceMatrix, kickbacks)) != -1 )
         {
           transform.Rotate(0,0,90);
           pieceMatrix.RotateLeft();
+          transform.position = transform.position + new Vector3(kickbacks[kickbackIndex].x,kickbacks[kickbackIndex].y,0f);
+          state = nextState;
+          Debug.Log("newState: " + state);
         }
         rotateLeft_b = false;
       }
 
       if(rotateRight_b)
       {
-        if(gameBoardManager.CheckRotationRight(transform.position, pieceMatrix))
+        nextState = NextState(state, "right");
+        kickbacks = GetKickbacks(state, nextState);
+        if((kickbackIndex = gameBoardManager.CheckRotationLeft(transform.position, pieceMatrix, kickbacks)) != -1 )
         {
           transform.Rotate(0,0,-90);
           pieceMatrix.RotateRight();
+          transform.position = transform.position + new Vector3(kickbacks[kickbackIndex].x,kickbacks[kickbackIndex].y,0f);
+          state = nextState;
+          Debug.Log("newState: " + state);
         }
         rotateRight_b = false;
+
       }
 
       if(hardDrop_b)
@@ -198,11 +217,18 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       //if this is true, then the piece has stopped moving, and reached the end of its life cycle
       if(stoppedTime > Constants.lockTime )
       {
+        //snaps piece to bottom, in case kickbacks moved it up.
+        while(gameBoardManager.CheckMoveDown(transform.position, pieceMatrix))
+        {
+          transform.position = transform.position + new Vector3(0f,-1f,0f);
+        }
+
         if(OnHitBottom != null)
         {
           if(gameBoardManager.SavePieceToBackground(transform.position, pieceMatrix, index) == 1)
           {
-            gameBoardManager.CheckForClearedLines(transform.position, pieceMatrix);
+            linesCleared = gameBoardManager.CheckForClearedLines(transform.position, pieceMatrix);
+            Debug.Log("LINES CLEARED: " +linesCleared );
             Debug.Log("Hit the Bottom");
             OnHitBottom();
 
@@ -221,4 +247,116 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
         stoppedTime += Time.fixedDeltaTime;
       }
     }
+
+    /* used to calculate next state, returns -1 if given invalid input */
+    int NextState( int currState, string turn)
+    {
+      int nextState;
+      if( turn == "left")
+      {
+        nextState = currState -1;
+      }
+      else if( turn == "right")
+      {
+        nextState = currState +1;
+      }
+      else
+      {
+        Debug.Log("INVALID INPUT");
+        return -1;
+      }
+
+      if(nextState == -1)
+      {
+        nextState = 3;
+      }
+      else if(nextState == 4)
+      {
+        nextState = 0;
+      }
+
+      return nextState;
+    }
+
+    List<Vector2> GetKickbacks( int currState, int nextState)
+    {
+      List<Vector2> kickbacks = new List<Vector2>();
+      kickbacks.Add( new Vector2(0,0));
+      int mappedVal = (currState * 10) + nextState;
+      //corresponds to Ipiece
+      if( index == 0 )
+      {
+        switch(mappedVal)
+        {
+          case 1:
+          case 32:
+            kickbacks.Add( new Vector2(-2,0));
+            kickbacks.Add( new Vector2(1,0));
+            kickbacks.Add( new Vector2(-2,-1));
+            kickbacks.Add( new Vector2(1,2));
+            break;
+          case 10:
+          case 23:
+            kickbacks.Add( new Vector2(2,0));
+            kickbacks.Add( new Vector2(-1,0));
+            kickbacks.Add( new Vector2(2,1));
+            kickbacks.Add( new Vector2(-1,-2));
+            break;
+          case 12:
+          case 3:
+            kickbacks.Add( new Vector2(-1,0));
+            kickbacks.Add( new Vector2(2,0));
+            kickbacks.Add( new Vector2(-1,2));
+            kickbacks.Add( new Vector2(2,-1));
+            break;
+          case 21:
+          case 30: 
+            kickbacks.Add( new Vector2(1,0));
+            kickbacks.Add( new Vector2(-2,0));
+            kickbacks.Add( new Vector2(1,-2));
+            kickbacks.Add( new Vector2(-2,1));
+            break;
+
+        }
+
+      }
+      else
+      {
+
+        switch(mappedVal)
+        {
+          case 1:
+          case 21:
+            kickbacks.Add( new Vector2(-1,0));
+            kickbacks.Add( new Vector2(-1,1));
+            kickbacks.Add( new Vector2(0,-2));
+            kickbacks.Add( new Vector2(-1,-2));
+            break;
+          case 10:
+          case 12:
+            kickbacks.Add( new Vector2(1,0));
+            kickbacks.Add( new Vector2(1,-1));
+            kickbacks.Add( new Vector2(0,2));
+            kickbacks.Add( new Vector2(1,2));
+            break;
+          case 23:
+          case 3:
+            kickbacks.Add( new Vector2(1,0));
+            kickbacks.Add( new Vector2(1,1));
+            kickbacks.Add( new Vector2(0,-2));
+            kickbacks.Add( new Vector2(1,-2));
+            break;
+          case 30:
+          case 32:
+            kickbacks.Add( new Vector2(-1,0));
+            kickbacks.Add( new Vector2(-1,-1));
+            kickbacks.Add( new Vector2(0,2));
+            kickbacks.Add( new Vector2(-1,2));
+            break;
+        }
+
+      }
+      return kickbacks;
+    }
+
 }
