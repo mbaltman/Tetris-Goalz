@@ -95,7 +95,6 @@ Whenever a piece stops, immediately create a new one.
       Debug.Log("REMOVE PIECE");
       controller.enabled=false;
       controller.OnHitBottom -= StopPiece;
-      controller.OnDisable();
       Destroy(activePieceInstance);
 
     }

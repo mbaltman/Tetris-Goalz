@@ -99,7 +99,7 @@ public class GameBoardManager : MonoBehaviour
 
           if(matrix[col,row] > 0)
           {
-            if( currPosition.x < 0 || currPosition.x >Constants.boardWidth || currPosition.y <0 || currPosition.y > Constants.boardHeight + Constants.boardExtraHeight )
+            if( currPosition.x < 0 || currPosition.x >Constants.boardWidth || currPosition.y <0 || currPosition.y > (Constants.boardHeight + Constants.boardExtraHeight) )
             {
               return false;
             }
@@ -134,6 +134,11 @@ public class GameBoardManager : MonoBehaviour
 
       //adjust highest y line
       currPosition.y = position.y  - matrixPosition.y;
+      if(currPosition.y < 0)
+      {
+        currPosition.y = 0; 
+      }
+      Debug.Log("curr position y : " + currPosition.y);
 
       for ( int row =0; row < Constants.tetriminoHeight; row ++ )
       {

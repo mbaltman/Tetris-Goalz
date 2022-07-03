@@ -117,6 +117,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HoldLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""ecdd7f5e-478b-42b5-ac5e-446ba255b452"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HoldRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce991c52-0ce4-4c93-9fb8-2f4b0f80139d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -196,6 +214,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""FastDrop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dc4a4f3c-b028-4ceb-98cc-9f71d890f0f1"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""HoldLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e5c7abd-a958-4d3d-a8da-1fd48212510a"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HoldRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -226,6 +266,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_gameplay_HoldPiece = m_gameplay.FindAction("HoldPiece", throwIfNotFound: true);
         m_gameplay_HardDrop = m_gameplay.FindAction("HardDrop", throwIfNotFound: true);
         m_gameplay_FastDrop = m_gameplay.FindAction("FastDrop", throwIfNotFound: true);
+        m_gameplay_HoldLeft = m_gameplay.FindAction("HoldLeft", throwIfNotFound: true);
+        m_gameplay_HoldRight = m_gameplay.FindAction("HoldRight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -325,6 +367,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_gameplay_HoldPiece;
     private readonly InputAction m_gameplay_HardDrop;
     private readonly InputAction m_gameplay_FastDrop;
+    private readonly InputAction m_gameplay_HoldLeft;
+    private readonly InputAction m_gameplay_HoldRight;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -336,6 +380,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @HoldPiece => m_Wrapper.m_gameplay_HoldPiece;
         public InputAction @HardDrop => m_Wrapper.m_gameplay_HardDrop;
         public InputAction @FastDrop => m_Wrapper.m_gameplay_FastDrop;
+        public InputAction @HoldLeft => m_Wrapper.m_gameplay_HoldLeft;
+        public InputAction @HoldRight => m_Wrapper.m_gameplay_HoldRight;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -366,6 +412,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @FastDrop.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFastDrop;
                 @FastDrop.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFastDrop;
                 @FastDrop.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFastDrop;
+                @HoldLeft.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHoldLeft;
+                @HoldLeft.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHoldLeft;
+                @HoldLeft.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHoldLeft;
+                @HoldRight.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHoldRight;
+                @HoldRight.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHoldRight;
+                @HoldRight.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnHoldRight;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -391,6 +443,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @FastDrop.started += instance.OnFastDrop;
                 @FastDrop.performed += instance.OnFastDrop;
                 @FastDrop.canceled += instance.OnFastDrop;
+                @HoldLeft.started += instance.OnHoldLeft;
+                @HoldLeft.performed += instance.OnHoldLeft;
+                @HoldLeft.canceled += instance.OnHoldLeft;
+                @HoldRight.started += instance.OnHoldRight;
+                @HoldRight.performed += instance.OnHoldRight;
+                @HoldRight.canceled += instance.OnHoldRight;
             }
         }
     }
@@ -417,5 +475,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnHoldPiece(InputAction.CallbackContext context);
         void OnHardDrop(InputAction.CallbackContext context);
         void OnFastDrop(InputAction.CallbackContext context);
+        void OnHoldLeft(InputAction.CallbackContext context);
+        void OnHoldRight(InputAction.CallbackContext context);
     }
 }

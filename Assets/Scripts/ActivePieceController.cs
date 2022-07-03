@@ -20,6 +20,8 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     private float stoppedTime;
     private float lowestPoint;
     private bool moveLeft_b = false;
+    private bool holdLeft_b = false;
+    private bool holdRight_b = false;
     private bool moveRight_b = false;
     private bool rotateRight_b = false;
     private bool rotateLeft_b = false;
@@ -73,7 +75,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       List<Vector2> kickbacks = new List<Vector2>();
       int kickbackIndex = -1;
 
-      if(moveLeft_b)
+      if(moveLeft_b || (holdLeft_b && (counter%10 == 0)))
       {
         if(gameBoardManager.CheckMoveLeft(transform.position, pieceMatrix))
         {
@@ -82,7 +84,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
         moveLeft_b = false;
       }
 
-      if(moveRight_b)
+      if(moveRight_b || (holdRight_b && (counter%10 == 0)))
       {
         if(gameBoardManager.CheckMoveRight(transform.position, pieceMatrix))
         {
@@ -132,7 +134,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
 
       }
 
-      if( counter >=interval || ( fastDropActive && counter >= interval/2))
+      if( counter >=interval || ( fastDropActive && counter >= 10))
       {
         if(gameBoardManager.CheckMoveDown(transform.position, pieceMatrix))
         {
@@ -209,11 +211,38 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       Debug.Log("curr interval " + interval);
     }
 
+    public void OnHoldLeft(InputAction.CallbackContext value)
+    {
+      if(value.performed)
+      {
+        holdLeft_b = true;
+        Debug.Log("HOLDING LEFT");
+
+      }
+      if(value.canceled)
+      {
+        holdLeft_b = false;
+        Debug.Log("HOLDING LEFT Canceled");
+      }
+    }
+
+    public void OnHoldRight(InputAction.CallbackContext value)
+    {
+      if(value.performed)
+      {
+        holdRight_b = true;
+        Debug.Log("HOLDING Right");
+
+      }
+      if(value.canceled)
+      {
+        holdRight_b = false;
+        Debug.Log("HOLDING Right Canceled");
+      }
+    }
     //check if piece has stopped moving long enough, that it should lock into place.
     private void CheckLockDelay()
     {
-
-
       //if this is true, then the piece has stopped moving, and reached the end of its life cycle
       if(stoppedTime > Constants.lockTime )
       {
@@ -310,7 +339,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
             kickbacks.Add( new Vector2(2,-1));
             break;
           case 21:
-          case 30: 
+          case 30:
             kickbacks.Add( new Vector2(1,0));
             kickbacks.Add( new Vector2(-2,0));
             kickbacks.Add( new Vector2(1,-2));
