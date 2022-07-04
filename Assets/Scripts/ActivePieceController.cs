@@ -38,11 +38,12 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     public event ActivePieceDelegate OnHitBottom;
     public event ActivePieceDelegate OnHold;
 
-    public void Setup( int currIndex)
+    public void Setup( int currIndex, int currInterval)
     {
       pieceMatrix = new Matrix(currIndex);
       index = currIndex;
       linesCleared = 0;
+      interval = currInterval;
     }
 
     void OnEnable()
@@ -71,6 +72,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     // Update is called once per frame
     void FixedUpdate()
     {
+      Debug.Log("curr interval " + interval);
       int nextState = 0;
       List<Vector2> kickbacks = new List<Vector2>();
       int kickbackIndex = -1;
@@ -201,8 +203,8 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       {
         fastDropActive = true;
         Debug.Log("started Fast Drop");
-
       }
+
       if(value.canceled)
       {
         Debug.Log("stopped Fast Drop");
@@ -264,7 +266,6 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
           }
         }
       }
-
 
       if(transform.position.y < lowestPoint)
       {

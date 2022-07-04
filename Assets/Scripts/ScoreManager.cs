@@ -7,6 +7,8 @@ public class ScoreManager : MonoBehaviour
 {
     public int currScore;
     public int highScore;
+    public int interval;
+
     GameBoardManager gameBoardManager;
     Text currentScore_Text;
     Text highScore_Text;
@@ -16,6 +18,7 @@ public class ScoreManager : MonoBehaviour
     private int currCombo;
     private int level;
     private int totalLinesCleared;
+
 
     void OnEnable()
     {
@@ -36,6 +39,7 @@ public class ScoreManager : MonoBehaviour
       currentScore_Text.text = currScore.ToString();
       highScore_Text.text = highScore.ToString();
       level_Text.text = level.ToString();
+      interval = 41; 
     }
 
     // Update is called once per frame
@@ -71,7 +75,9 @@ public class ScoreManager : MonoBehaviour
     {
       totalLinesCleared += numLines;
       level = (int) (totalLinesCleared / 10);
-      
+      interval = 41 - level;
+
+
       if(numLines == 0)
       {
         currCombo = 0;

@@ -44,12 +44,14 @@ public class GameFlowManager : MonoBehaviour
       holdPieceIndex = -1;
       currPieceIndex = GetRandomPiece();
       nextPieceIndex = GetRandomPiece();
-      CreatePiece();
+
       scoreManager = GameObject.Find("ScoreSign").GetComponent<ScoreManager>();
     }
 
     void Start()
     {
+      CreatePiece();
+
       if(UpdatePiece != null)
       {
         UpdatePiece(nextPieceIndex, "NextPiece");
@@ -64,7 +66,8 @@ public class GameFlowManager : MonoBehaviour
     {
       activePieceInstance = Instantiate(activePiecePrefabs[currPieceIndex]);
       controller = activePieceInstance.GetComponent<ActivePieceController>();
-      controller.Setup(currPieceIndex);
+      Debug.Log("SCORE MANAGER INTERVAL " + scoreManager.interval);
+      controller.Setup(currPieceIndex, scoreManager.interval);
       controller.OnHitBottom += StopPiece;
       controller.OnHold += HoldPiece;
       GameObject.Find("Grid").GetComponent<GameBoardManager>().GameOver += EndGame;

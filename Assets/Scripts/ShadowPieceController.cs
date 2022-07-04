@@ -16,11 +16,6 @@ public class ShadowPieceController : MonoBehaviour
       parentController = parent.GetComponent<ActivePieceController>();
       gameBoardManager = GameObject.Find("Grid").GetComponent<GameBoardManager>();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
