@@ -76,7 +76,7 @@ Whenever a piece stops, immediately create a new one.
     public void StopPiece()
     {
       Debug.Log( "On Stop event Recieved");
-      scoreManager.ScoreLines(controller.linesCleared, 1);
+      scoreManager.ScoreLines(controller.linesCleared);
 
       RemovePiece();
       currPieceIndex =nextPieceIndex;
