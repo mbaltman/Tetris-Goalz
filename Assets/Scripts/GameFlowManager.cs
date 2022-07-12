@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using static Constants;
 using Random = System.Random;
 using Object = UnityEngine.Object;
+using AITrainer;
 
 
 /*
@@ -25,9 +26,11 @@ public class GameFlowManager : MonoBehaviour
     private ScoreManager scoreManager;
 
     public GameObject [] activePiecePrefabs;
+    public bool trainAI;
     private int [] randomIndexList = { 0,1,2,3,4,5,6};
     private int currRandomIndex;
     private bool canHold;
+    private AITrainer HAL;
 
     //these indexes are the ones for all of the arrays in CONSTANT, that describe each individual tetriminio
     private int nextPieceIndex;
@@ -46,6 +49,7 @@ public class GameFlowManager : MonoBehaviour
       nextPieceIndex = GetRandomPiece();
 
       scoreManager = GameObject.Find("ScoreSign").GetComponent<ScoreManager>();
+      HAL = new AITrainer(); 
     }
 
     void Start()
@@ -71,6 +75,7 @@ public class GameFlowManager : MonoBehaviour
       controller.OnHitBottom += StopPiece;
       controller.OnHold += HoldPiece;
       GameObject.Find("Grid").GetComponent<GameBoardManager>().GameOver += EndGame;
+      if(trainAi)
     }
 /*
 function to destroy active piece, once it stops.

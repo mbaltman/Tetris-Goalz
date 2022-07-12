@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+
 
 public class Constants
 {
@@ -98,5 +101,29 @@ public static float [,] tetriminoSignCoordinates = {{0.07f,-4f},
                                                       {0f,-3.15f},
                                                       {0f,-4f}
                                                     };
+
+//enumerated list of all the possible positions a piece can take on the board ( 0-10 is x position, U L D R represent the orientation of the piece)
+public enum Actions : int
+{
+  U0, U1, U2, U3, U4, U5, U6, U7, U8, U9,
+  D0, D1, D2, D3, D4, D5, D6, D7, D8, D9,
+  L0, L1, L2, L3, L4, L5, L6, L7, L8, L9,
+  R0, R1, R2, R3, R4, R5, R6, R7, R8, R9
+}
+public List<Actions>  Iactions =  new List<Actions> {Actions.U0, Actions.U1, Actions.U2,Actions.U3, Actions.U4, Actions.U5, Actions.U6, Actions.U7, Actions.U8, Actions.U9,
+                                          Actions.L1, Actions.L2,Actions.L3, Actions.L4, Actions.L5, Actions.L6, Actions.L7};
+
+public List<Actions>   JLTactions  =  new List<Actions>     {Actions.U1, Actions.U2,Actions.U3, Actions.U4, Actions.U5, Actions.U6, Actions.U7, Actions.U8,
+                                          Actions.D1, Actions.D2,Actions.D3, Actions.D4, Actions.D5, Actions.D6, Actions.D7, Actions.D8,
+                                          Actions.L1, Actions.L2,Actions.L3, Actions.L4, Actions.L5, Actions.L6, Actions.L7, Actions.L8,Actions.L9,
+                                          Actions.R0, Actions.R1, Actions.R2,Actions.R3, Actions.R4, Actions.R5, Actions.R6, Actions.R7, Actions.R8};
+
+public List<Actions>  Oactions  =  new List<Actions>  {Actions.U1, Actions.U2,Actions.U3, Actions.U4, Actions.U5, Actions.U6, Actions.U7, Actions.U8,Actions.U9};
+
+
+public List<Actions>  SZactions  =  new List<Actions> {Actions.U1, Actions.U2,Actions.U3, Actions.U4, Actions.U5, Actions.U6, Actions.U7, Actions.U8,
+                                          Actions.L1, Actions.L2,Actions.L3, Actions.L4, Actions.L5, Actions.L6, Actions.L7, Actions.L8,Actions.L9};
+
+
 
 }

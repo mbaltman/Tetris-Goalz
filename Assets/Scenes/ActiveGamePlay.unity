@@ -648,6 +648,7 @@ MonoBehaviour:
   - {fileID: 5079586180620966055, guid: bbc1e0016d63508488ee37521cfc0f57, type: 3}
   - {fileID: 3740210651512309362, guid: ecf618736cf23204cbb77c9693ba9ae5, type: 3}
   - {fileID: 5372939714563522973, guid: a71779955bf588a4b98ef943b5403e44, type: 3}
+  trainAi: 0
 --- !u!4 &986258335
 Transform:
   m_ObjectHideFlags: 0
@@ -976,6 +977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currScore: 0
   highScore: 0
+  interval: 0
 --- !u!1 &1908692956
 GameObject:
   m_ObjectHideFlags: 0
