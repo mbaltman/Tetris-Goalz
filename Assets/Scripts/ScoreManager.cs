@@ -10,48 +10,49 @@ public class ScoreManager : MonoBehaviour
     public int interval;
 
     GameBoardManager gameBoardManager;
-    Text currentScore_Text;
-    Text highScore_Text;
-    Text level_Text;
+    public List<Text> currentScore_Text;
+    public List<Text> highScore_Text;
+    public List<Text> level_Text;
     private bool updateScore;
     private int deltaScore;
     private int currCombo;
     private int level;
     private int totalLinesCleared;
 
-
-    void OnEnable()
-    {
-        currentScore_Text = GameObject.Find("currentscore_ones").GetComponent<Text>();
-        highScore_Text = GameObject.Find("highscore_ones").GetComponent<Text>();
-        level_Text = GameObject.Find("level").GetComponent<Text>();
-    }
-
-    void Start()
+    void Awake()
     {
       currScore = 0;
       level = 0;
       totalLinesCleared = 0;
-      highScore = PlayerPrefs.GetInt("highscore", 0);
+      interval = 41;
       updateScore = false;
+
+    }
+    void OnEnable()
+    {
+    }
+
+    void Start()
+    {
+      highScore = PlayerPrefs.GetInt("highscore", 0);
       Debug.Log("initialhighscore");
       Debug.Log(highScore);
-      currentScore_Text.text = currScore.ToString();
-      highScore_Text.text = highScore.ToString();
-      level_Text.text = level.ToString();
-      interval = 41; 
+      DisplayText(currentScore_Text, currScore);
+      DisplayText(highScore_Text, highScore);
+      DisplayText(level_Text, level);
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-      level_Text.text = level.ToString();
+      DisplayText(level_Text, level);
       if(updateScore)
       {
         currScore += deltaScore;
         deltaScore = 0;
-        currentScore_Text.text = currScore.ToString();
-
+        //currentScore_Text.text = currScore.ToString();
+        DisplayText(currentScore_Text, currScore);
         Debug.Log(currScore);
         updateScore = false;
         if(currScore > highScore)
@@ -59,8 +60,7 @@ public class ScoreManager : MonoBehaviour
           Debug.Log("NEW HIGHSCORE SET");
           highScore = currScore;
           PlayerPrefs.SetInt ("highscore", highScore);
-          highScore_Text.text = highScore.ToString();
-
+          DisplayText(highScore_Text, highScore);
         }
       }
     }
@@ -103,5 +103,19 @@ public class ScoreManager : MonoBehaviour
       deltaScore = deltaScore + (currCombo * 50 * level);
       currCombo ++;
       updateScore = true;
+    }
+
+    public void DisplayText( List<Text> textObjects, int score )
+    {
+      int scoreHolder = score;
+      int multiplier = 10;
+
+      for( int i =0; i< textObjects.Count; i++)
+      {
+        textObjects[i].text = (scoreHolder%multiplier).ToString();
+        scoreHolder = scoreHolder - ( scoreHolder%multiplier);
+        multiplier = multiplier *10;
+      }
+
     }
 }
