@@ -98,5 +98,13 @@ public static float [,] tetriminoSignCoordinates = {{0.07f,-4f},
                                                       {0f,-3.15f},
                                                       {0f,-4f}
                                                     };
+public enum gameState: int
+{
+  NewGame,
+  Playing,
+  Paused,
+  Ended
+
+}
 
 }

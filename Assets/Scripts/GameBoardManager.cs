@@ -27,8 +27,8 @@ public class GameBoardManager : MonoBehaviour
 
     void Awake()
     {
+      availabilityGrid =  Constants.initialGameBoard.Clone() as int[,];
       backgroundTilePlaceholder = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/ActiveSquareBase.prefab", typeof(GameObject)) ;
-      availabilityGrid = Constants.initialGameBoard;
     }
 
 
@@ -136,7 +136,7 @@ public class GameBoardManager : MonoBehaviour
       currPosition.y = position.y  - matrixPosition.y;
       if(currPosition.y < 0)
       {
-        currPosition.y = 0; 
+        currPosition.y = 0;
       }
       Debug.Log("curr position y : " + currPosition.y);
 
@@ -228,6 +228,16 @@ public class GameBoardManager : MonoBehaviour
       }
       return 1;
 
+    }
+
+    public void Reset()
+    {
+      availabilityGrid =  Constants.initialGameBoard.Clone() as int[,];
+
+      for( int i =0; i< Constants.boardHeight; i ++ )
+      {
+        ClearLine(i);
+      }
     }
 
 }

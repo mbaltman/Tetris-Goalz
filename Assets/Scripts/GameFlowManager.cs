@@ -23,6 +23,7 @@ public class GameFlowManager : MonoBehaviour
     private GameObject activePieceInstance;
     private ActivePieceController controller;
     private ScoreManager scoreManager;
+    private GameBoardManager gameBoardManager;
 
     public GameObject [] activePiecePrefabs;
     private int [] randomIndexList = { 0,1,2,3,4,5,6};
@@ -34,8 +35,13 @@ public class GameFlowManager : MonoBehaviour
     private int holdPieceIndex;
     private int currPieceIndex;
 
-    public delegate void ActivePieceDelegate(int index, string currPiece);
-    public event ActivePieceDelegate UpdatePiece;
+    public delegate void UpdateSignDelegate(int index, string currPiece);
+    public event UpdateSignDelegate UpdatePiece;
+
+    public delegate void ResetSignDelegate();
+    public event ResetSignDelegate ResetSign;
+
+    private gameState currentGameState;
 
 
     void Awake()
@@ -46,17 +52,13 @@ public class GameFlowManager : MonoBehaviour
       nextPieceIndex = GetRandomPiece();
 
       scoreManager = GameObject.Find("ScoreSign").GetComponent<ScoreManager>();
+      gameBoardManager = GameObject.Find("Grid").GetComponent<GameBoardManager>();
+      currentGameState = gameState.NewGame;
     }
 
     void Start()
     {
-      CreatePiece();
-
-      if(UpdatePiece != null)
-      {
-        UpdatePiece(nextPieceIndex, "NextPiece");
-        canHold = true;
-      }
+      Time.timeScale = 0;
     }
 
     /*
@@ -70,7 +72,8 @@ public class GameFlowManager : MonoBehaviour
       controller.Setup(currPieceIndex, scoreManager.interval);
       controller.OnHitBottom += StopPiece;
       controller.OnHold += HoldPiece;
-      GameObject.Find("Grid").GetComponent<GameBoardManager>().GameOver += EndGame;
+
+      gameBoardManager.GameOver += EndGame;
     }
 /*
 function to destroy active piece, once it stops.
@@ -148,6 +151,47 @@ Whenever a piece stops, immediately create a new one.
     private void EndGame()
     {
       Debug.Log("ENDGAME");
-      controller.enabled=false;
+      //controller.enabled=false;
+    }
+
+    public void StartGame()
+    {
+      Time.timeScale = 1;
+      if(currentGameState == gameState.NewGame)
+      {
+        CreatePiece();
+
+        if(UpdatePiece != null)
+        {
+          UpdatePiece(nextPieceIndex, "NextPiece");
+          canHold = true;
+        }
+      }
+      currentGameState = gameState.Playing;
+    }
+
+    public void PauseGame()
+    {
+      Time.timeScale = 0;
+      currentGameState = gameState.Paused;
+    }
+
+    public void ResetGame()
+    {
+      Time.timeScale = 0;
+      RemovePiece();
+      //resets randomizer
+      currRandomIndex = 7;
+      //reset SCORE
+      scoreManager.Reset();
+      //reset hold and next piece displays
+      if( ResetSign != null)
+      {
+        ResetSign();
+      }
+      //reset Board
+      gameBoardManager.Reset();
+
+      currentGameState = gameState.NewGame;
     }
   }

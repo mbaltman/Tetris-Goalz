@@ -21,28 +21,9 @@ public class ScoreManager : MonoBehaviour
 
     void Awake()
     {
-      currScore = 0;
-      level = 0;
-      totalLinesCleared = 0;
-      interval = 41;
-      updateScore = false;
+      Reset();
 
     }
-    void OnEnable()
-    {
-    }
-
-    void Start()
-    {
-      highScore = PlayerPrefs.GetInt("highscore", 0);
-      Debug.Log("initialhighscore");
-      Debug.Log(highScore);
-      DisplayText(currentScore_Text, currScore);
-      DisplayText(highScore_Text, highScore);
-      DisplayText(level_Text, level);
-
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -118,4 +99,20 @@ public class ScoreManager : MonoBehaviour
       }
 
     }
+
+   public void Reset()
+   {
+     currScore = 0;
+     level = 0;
+     totalLinesCleared = 0;
+     interval = 41;
+     updateScore = false;
+     highScore = PlayerPrefs.GetInt("highscore", 0);
+     Debug.Log("initialhighscore");
+     Debug.Log(highScore);
+     DisplayText(currentScore_Text, currScore);
+     DisplayText(highScore_Text, highScore);
+     DisplayText(level_Text, level);
+
+   }
 }

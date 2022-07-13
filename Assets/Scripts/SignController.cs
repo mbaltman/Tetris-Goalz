@@ -17,6 +17,7 @@ public class SignController : MonoBehaviour
       piece =  GameObject.Find(pieceName);
       pieceRenderer = piece.GetComponent<SpriteRenderer>();
       GameObject.Find("PlayerObject").GetComponent<GameFlowManager>().UpdatePiece += UpdatePiece;
+      GameObject.Find("PlayerObject").GetComponent<GameFlowManager>().ResetSign += Reset;
     }
 
     void UpdatePiece(int index, string currPiece)
@@ -28,5 +29,9 @@ public class SignController : MonoBehaviour
         GetComponent<Animator>().Play("SignSwinging");
       }
 
+    }
+    public void Reset()
+    {
+      pieceRenderer.sprite = null; 
     }
 }

@@ -245,6 +245,11 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     //check if piece has stopped moving long enough, that it should lock into place.
     private void CheckLockDelay()
     {
+      //stopped time gets reset, if the game is paused.
+      if(Time.timeScale == 0)
+      {
+        stoppedTime =0;
+      }
       //if this is true, then the piece has stopped moving, and reached the end of its life cycle
       if(stoppedTime > Constants.lockTime )
       {
