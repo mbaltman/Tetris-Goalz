@@ -14,11 +14,11 @@ public class GameBoardManager : MonoBehaviour
 {
     public Sprite [] tileSpries;
     public int [,] availabilityGrid;
-    private GameObject backgroundTilePlaceholder;
     private GameObject currTile;
 
     public delegate void ClearLineDelegate(int row);
     public event ClearLineDelegate ClearLine;
+    public GameObject backgroundTilePlaceholder;
 
     public delegate void GameOverDelegate();
     public event GameOverDelegate GameOver;
@@ -28,7 +28,7 @@ public class GameBoardManager : MonoBehaviour
     void Awake()
     {
       availabilityGrid =  Constants.initialGameBoard.Clone() as int[,];
-      backgroundTilePlaceholder = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/ActiveSquareBase.prefab", typeof(GameObject)) ;
+
     }
 
 

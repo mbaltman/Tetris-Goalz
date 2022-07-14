@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 57714368}
   - component: {fileID: 57714369}
   - component: {fileID: 57714370}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: currentscore_millions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 181601707}
   - component: {fileID: 181601706}
   - component: {fileID: 181601705}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 197693943}
   - component: {fileID: 197693944}
   - component: {fileID: 197693945}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: highscore_hundredthousands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 250972820}
   - component: {fileID: 250972819}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 522191203}
   - component: {fileID: 522191204}
   - component: {fileID: 522191205}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: currentscore_tens
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +598,7 @@ GameObject:
   - component: {fileID: 690739671}
   - component: {fileID: 690739670}
   - component: {fileID: 690739669}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: PauseGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,6 +731,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoldPiece
       objectReference: {fileID: 0}
+    - target: {fileID: 4470453421872687088, guid: 67e80e6a12526d642b60865a524e36cc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4470453421872687103, guid: 67e80e6a12526d642b60865a524e36cc,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -760,6 +765,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HoldSignObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470453423254700369, guid: 67e80e6a12526d642b60865a524e36cc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4470453423254700382, guid: 67e80e6a12526d642b60865a524e36cc,
         type: 3}
@@ -1032,7 +1042,7 @@ GameObject:
   - component: {fileID: 954449163}
   - component: {fileID: 954449165}
   - component: {fileID: 954449164}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: currentscore_ones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1111,7 +1121,7 @@ GameObject:
   - component: {fileID: 956969551}
   - component: {fileID: 956969553}
   - component: {fileID: 956969552}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: highscore_ones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1193,7 +1203,7 @@ GameObject:
   - component: {fileID: 1045138692}
   - component: {fileID: 1045138693}
   - component: {fileID: 1045138694}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: currentscore_hundredthousands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1272,7 +1282,7 @@ GameObject:
   - component: {fileID: 1197301763}
   - component: {fileID: 1197301765}
   - component: {fileID: 1197301764}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: level_ones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1352,7 +1362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1365626086}
   - component: {fileID: 1365626085}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SignPost (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1435,7 +1445,7 @@ GameObject:
   - component: {fileID: 1380106196}
   - component: {fileID: 1380106197}
   - component: {fileID: 1380106198}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: highscore_hundreds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1597,6 +1607,7 @@ MonoBehaviour:
   - {fileID: 5079586180620966055, guid: bbc1e0016d63508488ee37521cfc0f57, type: 3}
   - {fileID: 3740210651512309362, guid: ecf618736cf23204cbb77c9693ba9ae5, type: 3}
   - {fileID: 5372939714563522973, guid: a71779955bf588a4b98ef943b5403e44, type: 3}
+  menuCanvas: {fileID: 250972817}
 --- !u!212 &1401847676
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1674,7 +1685,7 @@ GameObject:
   - component: {fileID: 1590991950}
   - component: {fileID: 1590991951}
   - component: {fileID: 1590991952}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: highscore_tens
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1756,7 +1767,7 @@ GameObject:
   - component: {fileID: 1620493621}
   - component: {fileID: 1620493622}
   - component: {fileID: 1620493623}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: currentscore_tenthousands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1921,7 +1932,7 @@ GameObject:
   - component: {fileID: 1737902302}
   - component: {fileID: 1737902303}
   - component: {fileID: 1737902304}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: highscore_tenthousands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2003,7 +2014,7 @@ GameObject:
   - component: {fileID: 1803518526}
   - component: {fileID: 1803518527}
   - component: {fileID: 1803518528}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: highscore_thousands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2085,7 +2096,7 @@ GameObject:
   - component: {fileID: 1844257404}
   - component: {fileID: 1844257403}
   - component: {fileID: 1844257405}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ScoreSign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2203,7 +2214,7 @@ GameObject:
   - component: {fileID: 1850921459}
   - component: {fileID: 1850921460}
   - component: {fileID: 1850921461}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: currentscore_thousands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2282,7 +2293,7 @@ GameObject:
   - component: {fileID: 1882619144}
   - component: {fileID: 1882619145}
   - component: {fileID: 1882619146}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: currentscore_hundreds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2493,7 +2504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1908692958}
   - component: {fileID: 1908692957}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SignPost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2576,7 +2587,7 @@ GameObject:
   - component: {fileID: 1930991843}
   - component: {fileID: 1930991845}
   - component: {fileID: 1930991844}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2682,7 +2693,7 @@ GameObject:
   - component: {fileID: 1961620578}
   - component: {fileID: 1961620577}
   - component: {fileID: 1961620576}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: highscore_millions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2764,7 +2775,7 @@ GameObject:
   - component: {fileID: 2012033847}
   - component: {fileID: 2012033849}
   - component: {fileID: 2012033848}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: level_tens
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2920,6 +2931,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4470453421872687088, guid: 67e80e6a12526d642b60865a524e36cc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4470453421872687103, guid: 67e80e6a12526d642b60865a524e36cc,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -2944,6 +2960,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NextSignObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470453423254700369, guid: 67e80e6a12526d642b60865a524e36cc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4470453423254700382, guid: 67e80e6a12526d642b60865a524e36cc,
         type: 3}
