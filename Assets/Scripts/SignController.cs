@@ -16,22 +16,28 @@ public class SignController : MonoBehaviour
     {
       piece =  GameObject.Find(pieceName);
       pieceRenderer = piece.GetComponent<SpriteRenderer>();
-      GameObject.Find("PlayerObject").GetComponent<GameFlowManager>().UpdatePiece += UpdatePiece;
-      GameObject.Find("PlayerObject").GetComponent<GameFlowManager>().ResetSign += Reset;
+      GameObject.Find("Menu").GetComponent<GameFlowManager>().UpdatePiece += UpdatePiece;
+      GameObject.Find("Menu").GetComponent<GameFlowManager>().VoidSign += Reset;
     }
 
     void UpdatePiece(int index, string currPiece)
     {
       if(currPiece == pieceName)
       {
-        pieceRenderer.sprite = tetriminoSprites[index];
-        piece.transform.localPosition = new Vector3(Constants.tetriminoSignCoordinates[index, 0], Constants.tetriminoSignCoordinates[index, 1], 0f);
-        GetComponent<Animator>().Play("SignSwinging");
+        if( index == -1)
+          pieceRenderer.sprite  = null;
+        else
+         {
+            pieceRenderer.sprite = tetriminoSprites[index];
+            piece.transform.localPosition = new Vector3(Constants.tetriminoSignCoordinates[index, 0], Constants.tetriminoSignCoordinates[index, 1], 0f);
+            GetComponent<Animator>().Play("SignSwinging");
+         }
+
       }
 
     }
     public void Reset()
     {
-      pieceRenderer.sprite = null; 
+      pieceRenderer.sprite = null;
     }
 }

@@ -8,13 +8,16 @@ public class ShadowPieceController : MonoBehaviour
     private ActivePieceController parentController;
 
     private Matrix pieceMatrix;
-    GameBoardManager gameBoardManager;
+    private GameBoardManager gameBoardManager;
+    private SpriteRenderer pieceRenderer;
 
     void Awake()
     {
       parent = this.transform.parent.gameObject;
       parentController = parent.GetComponent<ActivePieceController>();
       gameBoardManager = GameObject.Find("Grid").GetComponent<GameBoardManager>();
+      pieceRenderer = gameObject.GetComponent<SpriteRenderer>();
+      pieceRenderer.enabled = false;
     }
 
     // Update is called once per frame
@@ -28,6 +31,7 @@ public class ShadowPieceController : MonoBehaviour
         {
           transform.position = transform.position + new Vector3(0f,-1f,0f);
         }
+        pieceRenderer.enabled = true;
 
 
     }

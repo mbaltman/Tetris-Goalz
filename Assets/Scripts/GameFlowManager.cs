@@ -26,6 +26,7 @@ public class GameFlowManager : MonoBehaviour
     private GameBoardManager gameBoardManager;
 
     public GameObject [] activePiecePrefabs;
+    public GameObject menuCanvas;
     private int [] randomIndexList = { 0,1,2,3,4,5,6};
     private int currRandomIndex;
     private bool canHold;
@@ -39,7 +40,7 @@ public class GameFlowManager : MonoBehaviour
     public event UpdateSignDelegate UpdatePiece;
 
     public delegate void ResetSignDelegate();
-    public event ResetSignDelegate ResetSign;
+    public event ResetSignDelegate VoidSign;
 
     private gameState currentGameState;
 
@@ -151,33 +152,61 @@ Whenever a piece stops, immediately create a new one.
     private void EndGame()
     {
       Debug.Log("ENDGAME");
-      //controller.enabled=false;
+      PauseGame();
+      currentGameState = gameState.Ended;
+
+
     }
 
     public void StartGame()
     {
-      Time.timeScale = 1;
+      //start game
+
+      //hide menu
+      gameObject.GetComponent<Renderer>().enabled = false;
+      menuCanvas.SetActive(false);
+      //if needed create new piece
+      if(currentGameState == gameState.Ended)
+      {
+        Debug.Log("GOING TO RESET GAME");
+        ResetGame();
+      }
       if(currentGameState == gameState.NewGame)
       {
         CreatePiece();
-
         if(UpdatePiece != null)
         {
           UpdatePiece(nextPieceIndex, "NextPiece");
           canHold = true;
         }
       }
+      //display hold and next piece
+      UpdatePiece(holdPieceIndex, "HoldPiece");
+      UpdatePiece(nextPieceIndex, "NextPiece");
+      Camera.main.cullingMask = -1;
+
       currentGameState = gameState.Playing;
+      Time.timeScale = 1;
     }
 
     public void PauseGame()
     {
+      //stop game
       Time.timeScale = 0;
+      //show sign
+      gameObject.GetComponent<Renderer>().enabled = true;
+      menuCanvas.SetActive(true);
+
+      //hides next and hold pieces
+      VoidSign();
+      Camera.main.cullingMask = LayerMask.GetMask("UI", "Background");
+
       currentGameState = gameState.Paused;
     }
 
     public void ResetGame()
     {
+      Debug.Log("RESETTING GAME");
       Time.timeScale = 0;
       RemovePiece();
       //resets randomizer
@@ -185,9 +214,12 @@ Whenever a piece stops, immediately create a new one.
       //reset SCORE
       scoreManager.Reset();
       //reset hold and next piece displays
-      if( ResetSign != null)
+      if( VoidSign != null)
       {
-        ResetSign();
+        holdPieceIndex = -1;
+        nextPieceIndex = -1;
+        UpdatePiece(holdPieceIndex, "HoldPiece");
+        UpdatePiece(nextPieceIndex, "NextPiece");
       }
       //reset Board
       gameBoardManager.Reset();

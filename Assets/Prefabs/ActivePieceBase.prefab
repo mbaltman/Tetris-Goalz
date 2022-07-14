@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2564531658695961985}
   - component: {fileID: 2564531658695961984}
   - component: {fileID: 2564531658695961987}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ActivePieceBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startX: 5.5
   startY: 22.5
+  linesCleared: 0
   interval: 40
+  state: 0
 --- !u!1 &6186268835443472282
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,7 +112,7 @@ GameObject:
   - component: {fileID: 7922841614060974162}
   - component: {fileID: 20602262}
   - component: {fileID: 20602261}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
