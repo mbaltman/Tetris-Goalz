@@ -952,6 +952,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 858a4f2bf1c1c1a42910386d79056ede, type: 3}
   - {fileID: 21300000, guid: 81f02ee6d7d90c64688c75613dbb58cb, type: 3}
   - {fileID: 21300000, guid: 9fc61d1142571b24db2a3023802ee9af, type: 3}
+  backgroundTilePlaceholder: {fileID: 8510984769193213667, guid: 210c9f45506ee554c8f0e7827b0f07dc,
+    type: 3}
 --- !u!1 &857582419
 GameObject:
   m_ObjectHideFlags: 0

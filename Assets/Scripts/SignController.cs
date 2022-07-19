@@ -8,16 +8,18 @@ using static Constants;
 public class SignController : MonoBehaviour
 {
     public string pieceName;
-    GameObject piece;
-    SpriteRenderer pieceRenderer;
+    public GameObject piece;
+    public GameObject menu;
     public Sprite [] tetriminoSprites;
+
+    SpriteRenderer pieceRenderer;
+
 
     void Awake()
     {
-      piece =  GameObject.Find(pieceName);
       pieceRenderer = piece.GetComponent<SpriteRenderer>();
-      GameObject.Find("Menu").GetComponent<GameFlowManager>().UpdatePiece += UpdatePiece;
-      GameObject.Find("Menu").GetComponent<GameFlowManager>().VoidSign += Reset;
+      menu.GetComponent<GameFlowManager>().UpdatePiece += UpdatePiece;
+      menu.GetComponent<GameFlowManager>().VoidSign += Reset;
     }
 
     void UpdatePiece(int index, string currPiece)

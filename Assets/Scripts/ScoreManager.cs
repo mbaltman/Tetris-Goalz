@@ -86,6 +86,13 @@ public class ScoreManager : MonoBehaviour
       updateScore = true;
     }
 
+    public void QuickDrop(int points_delta)
+    {
+      deltaScore = deltaScore + points_delta;
+      updateScore = true;
+    }
+
+
     public void DisplayText( List<Text> textObjects, int score )
     {
       int scoreHolder = score;

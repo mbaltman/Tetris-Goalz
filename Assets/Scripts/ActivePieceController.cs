@@ -29,9 +29,11 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     private int counter = 0;
     private int index;
     private bool fastDropActive;
+    private int points_delta;
     private InputAction action;
     public Matrix pieceMatrix;
     private GameBoardManager gameBoardManager;
+    private ScoreManager scoreManager;
 
 
     public delegate void ActivePieceDelegate();
@@ -57,6 +59,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
       Debug.Log("Enable Piece");
       userInput.gameplay.Enable();
       gameBoardManager = GameObject.Find("Grid").GetComponent<GameBoardManager>();
+      scoreManager = GameObject.Find("ScoreSign").GetComponent<ScoreManager>();
       transform.position = new Vector3(startX,startY,0f);
       lowestPoint = transform.position.y;
       fastDropActive = false;
@@ -72,6 +75,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     // Update is called once per frame
     void FixedUpdate()
     {
+      points_delta = 0;
       Debug.Log("curr interval " + interval);
       int nextState = 0;
       List<Vector2> kickbacks = new List<Vector2>();
@@ -131,6 +135,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
         while(gameBoardManager.CheckMoveDown(transform.position, pieceMatrix))
         {
           transform.position = transform.position + new Vector3(0f,-1f,0f);
+          points_delta = points_delta + 2;
         }
         hardDrop_b = false;
 
@@ -141,10 +146,15 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
         if(gameBoardManager.CheckMoveDown(transform.position, pieceMatrix))
         {
           transform.position = transform.position + new Vector3(0f,-1f,0f);
+          if(fastDropActive )
+          {
+            points_delta = points_delta + 1;
+          }
         }
           counter = 0;
       }
-
+      
+      scoreManager.QuickDrop(points_delta);
       counter++;
       CheckLockDelay();
     }
