@@ -18,6 +18,7 @@ public class ScoreManager : MonoBehaviour
     private int currCombo;
     private int level;
     private int totalLinesCleared;
+    private bool tspin;
 
     void Awake()
     {
@@ -34,7 +35,6 @@ public class ScoreManager : MonoBehaviour
         deltaScore = 0;
         //currentScore_Text.text = currScore.ToString();
         DisplayText(currentScore_Text, currScore);
-        Debug.Log(currScore);
         updateScore = false;
         if(currScore > highScore)
         {
@@ -62,34 +62,59 @@ public class ScoreManager : MonoBehaviour
       if(numLines == 0)
       {
         currCombo = 0;
+        if(tspin)
+        {
+          deltaScore = 400;
+          updateScore = true;
+          Debug.Log("simplest tspin score");
+        }
         return;
       }
       else if( numLines == 1)
       {
         deltaScore = 100;
+        if(tspin)
+        {
+          deltaScore = 800;
+        }
       }
       else if( numLines == 2)
       {
         deltaScore = 300;
+        if(tspin)
+        {
+          deltaScore = 1200;
+        }
       }
       else if( numLines ==3)
       {
         deltaScore = 500;
+        if(tspin)
+        {
+          deltaScore = 1600;
+        }
       }
       else if ( numLines == 4)
       {
         deltaScore = 800;
       }
       //account for combo
-      deltaScore = deltaScore + (currCombo * 50 * level);
+      deltaScore = (deltaScore*level) + (currCombo * 50 * level);
       currCombo ++;
       updateScore = true;
+      tspin = false;
     }
 
     public void QuickDrop(int points_delta)
     {
       deltaScore = deltaScore + points_delta;
       updateScore = true;
+    }
+
+    public void TSpin()
+    {
+      tspin = true;
+      Debug.Log("TSPIN");
     }
 
 

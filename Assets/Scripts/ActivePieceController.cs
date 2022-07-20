@@ -15,6 +15,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     public int linesCleared;
     public int interval;
     public int state;
+    public bool tspin;
     //tracks current position , 0 = spawn, 1 = right of spawn, 2 = 180 of spawn, 3 = left of spawn
 
     private float stoppedTime;
@@ -42,6 +43,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
 
     public void Setup( int currIndex, int currInterval)
     {
+      tspin = false;
       pieceMatrix = new Matrix(currIndex);
       index = currIndex;
       linesCleared = 0;
@@ -76,7 +78,6 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
     void FixedUpdate()
     {
       points_delta = 0;
-      Debug.Log("curr interval " + interval);
       int nextState = 0;
       List<Vector2> kickbacks = new List<Vector2>();
       int kickbackIndex = -1;
@@ -153,7 +154,7 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
         }
           counter = 0;
       }
-      
+
       scoreManager.QuickDrop(points_delta);
       counter++;
       CheckLockDelay();
@@ -273,8 +274,10 @@ public class ActivePieceController : MonoBehaviour, PlayerControls.IGameplayActi
         {
           if(gameBoardManager.SavePieceToBackground(transform.position, pieceMatrix, index) == 1)
           {
+            Debug.Log("SAVED TO BACKGROUND");
+            tspin = gameBoardManager.CheckTSpin(transform.position, pieceMatrix, index);
             linesCleared = gameBoardManager.CheckForClearedLines(transform.position, pieceMatrix);
-            Debug.Log("LINES CLEARED: " +linesCleared );
+            Debug.Log("LINES CLEARED: " + linesCleared );
             Debug.Log("Hit the Bottom");
             OnHitBottom();
 

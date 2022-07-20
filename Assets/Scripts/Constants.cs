@@ -90,7 +90,9 @@ public static string[] tetriminoSprites = {"Assets/Art/Tetriminos/I.png",
                                            "Assets/Art/Tetriminos/T.png",
                                            "Assets/Art/Tetriminos/Z.png"};
 
-public static float [,] tetriminoSignCoordinates = {{0.07f,-4f},
+public static float [,] tspinChecks = {{-1,-1}, {-1,1},{1,-1},{1,1}};
+
+public static float [,] tetriminoSignCoordinates =  {{0.07f,-4f},
                                                       {0f, -4f},
                                                       {0.07f, -3.15f},
                                                       {0f,-3.5f},
@@ -98,6 +100,10 @@ public static float [,] tetriminoSignCoordinates = {{0.07f,-4f},
                                                       {0f,-3.15f},
                                                       {0f,-4f}
                                                     };
+
+
+
+
 public enum gameState: int
 {
   NewGame,

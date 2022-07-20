@@ -82,7 +82,11 @@ Whenever a piece stops, immediately create a new one.
 */
     public void StopPiece()
     {
-      Debug.Log( "On Stop event Recieved");
+      Debug.Log( "On Stop event Recieved");  
+      if(controller.tspin)
+      {
+        scoreManager.TSpin();
+      }
       scoreManager.ScoreLines(controller.linesCleared);
 
       RemovePiece();

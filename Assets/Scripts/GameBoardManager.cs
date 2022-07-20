@@ -176,6 +176,50 @@ public class GameBoardManager : MonoBehaviour
       return numLines;
     }
 
+    public bool CheckTSpin(Vector3 position, Matrix pieceMatrix, int index)
+    {
+      Debug.Log("CheckTSpin");
+      if( index != 5)
+      {
+        return false;
+      }
+      Debug.Log("checking for tspin");
+
+      Vector3 matrixPosition = pieceMatrix.GetCenter();
+      int [,] matrix = pieceMatrix.GetMatrix();
+      Vector3 currPosition = new Vector3(0f,0f,0f);
+      int count = 0;
+      for(int i =0; i< 4; i ++  )
+      {
+        currPosition.x  = position.x  + Constants.tspinChecks[i,0];
+        currPosition.y  = position.y  + Constants.tspinChecks[i,1];
+
+        Debug.Log("x " + (int)currPosition.x + " y " + (int)currPosition.y);
+        Debug.Log("GRID : " + availabilityGrid[(int)currPosition.x, (int)currPosition.y]);
+
+        if(currPosition.x<0 || currPosition.y < 0 || currPosition.y> Constants.boardWidth)
+        {
+          return false;
+        }
+        else if(availabilityGrid[(int)currPosition.x, (int)currPosition.y] == 1 )
+        {
+          Debug.Log("x " + (int)currPosition.x + " y " + (int)currPosition.y);
+          count++;
+        }
+      }
+        Debug.Log("COUNT" + count);
+
+      if( count >= 3)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+
+
     public void DeleteRow(int rowCleared)
     {
       for (int row = 0; row < Constants.boardHeight + Constants.boardExtraHeight; row++)
