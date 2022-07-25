@@ -5,11 +5,12 @@ using UnityEditor;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Threading;
+using System.Threading.Tasks;
 
 using static Constants;
 using Random = System.Random;
 using Object = UnityEngine.Object;
-
 
 /*
 This class manages the flow of the piece over the course of the game,
@@ -82,14 +83,21 @@ Whenever a piece stops, immediately create a new one.
 */
     public void StopPiece()
     {
-      Debug.Log( "On Stop event Recieved");  
+      int linesCleared = controller.linesCleared;
+      Debug.Log( "On Stop event Recieved");
       if(controller.tspin)
       {
         scoreManager.TSpin();
       }
-      scoreManager.ScoreLines(controller.linesCleared);
+      scoreManager.ScoreLines(linesCleared);
 
       RemovePiece();
+      if(linesCleared >0)
+      {
+        float timeWait = Time.time + Constants.lineClearTime;
+
+        Debug.Log("WAIT TO MAKE NEXT PIECE");
+      }
       currPieceIndex =nextPieceIndex;
       nextPieceIndex = GetRandomPiece();
       if(UpdatePiece != null)

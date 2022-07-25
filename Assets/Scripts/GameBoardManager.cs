@@ -19,6 +19,7 @@ public class GameBoardManager : MonoBehaviour
     public delegate void ClearLineDelegate(int row);
     public event ClearLineDelegate ClearLine;
     public GameObject backgroundTilePlaceholder;
+    public GameObject clearLineObject;
 
     public delegate void GameOverDelegate();
     public event GameOverDelegate GameOver;
@@ -169,7 +170,9 @@ public class GameBoardManager : MonoBehaviour
       }
       int offset = 0;
       foreach( int row in linesToClear)
-      {
+      {        //create Clear line animation
+        currPosition = new Vector3(5f, (float)row+ 0.5f, 0f);
+        Instantiate(clearLineObject, currPosition, Quaternion.identity);
         DeleteRow(row-offset);
         offset++;
       }

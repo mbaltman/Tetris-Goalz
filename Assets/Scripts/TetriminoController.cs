@@ -9,6 +9,7 @@ public class TetriminoController : MonoBehaviour
     bool deleteMyself;
     bool moveDown;
     float distanceDown;
+    private float timeToMove;
 
     // Start is called before the first frame update
     void Awake()
@@ -30,7 +31,7 @@ public class TetriminoController : MonoBehaviour
         GameObject.Find("Grid").GetComponent<GameBoardManager>().ClearLine -= CheckMyself;
         GameObject.Destroy(gameObject);
       }
-      else if(moveDown)
+      else if(moveDown && Time.time > timeToMove)
       {
         transform.position = transform.position + new Vector3(0f,-distanceDown,0f);
         distanceDown= 0f;
@@ -51,6 +52,8 @@ public class TetriminoController : MonoBehaviour
       {
         moveDown = true;
         distanceDown += 1f;
+        // add in delay, for clear line animation
+        timeToMove = Time.time + Constants.lineClearTime;
 
       }
     }
