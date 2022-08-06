@@ -68,6 +68,12 @@ public class GameBoardManager : MonoBehaviour
       position_copy.y = position.y -1f;
       return CheckAvailability(position_copy, pieceMatrix);
     }
+    public bool CheckMoveUp(Vector3 position, Matrix pieceMatrix)
+    {
+      Vector3 position_copy = new Vector3(position.x, position.y, position.z);
+      position_copy.y = position.y + 1f;
+      return CheckAvailability(position_copy, pieceMatrix);
+    }
 
     public bool CheckMoveLeft(Vector3 position, Matrix pieceMatrix)
     {
@@ -197,10 +203,7 @@ public class GameBoardManager : MonoBehaviour
         currPosition.x  = position.x  + Constants.tspinChecks[i,0];
         currPosition.y  = position.y  + Constants.tspinChecks[i,1];
 
-        Debug.Log("x " + (int)currPosition.x + " y " + (int)currPosition.y);
-        Debug.Log("GRID : " + availabilityGrid[(int)currPosition.x, (int)currPosition.y]);
-
-        if(currPosition.x<0 || currPosition.y < 0 || currPosition.y> Constants.boardWidth)
+        if(currPosition.x<0 || currPosition.x> Constants.boardWidth || currPosition.y < 0 || currPosition.y> Constants.boardHeight)
         {
           return false;
         }
@@ -214,12 +217,16 @@ public class GameBoardManager : MonoBehaviour
 
       if( count >= 3)
       {
-        return true;
+        //check that piece cannot move up down left or right
+        if(CheckMoveUp(position,  pieceMatrix)== false &&
+           CheckMoveDown( position,  pieceMatrix) == false &&
+           CheckMoveLeft( position,  pieceMatrix) == false &&
+           CheckMoveRight( position,  pieceMatrix) == false)
+        {
+          return true;
+        }
       }
-      else
-      {
-        return false;
-      }
+      return false;
     }
 
 

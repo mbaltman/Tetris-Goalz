@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
 using System;
 using System.Linq;
@@ -28,6 +29,7 @@ public class GameFlowManager : MonoBehaviour
 
     public GameObject [] activePiecePrefabs;
     public GameObject menuCanvas;
+    public Text scoreDisplay;
     private int [] randomIndexList = { 0,1,2,3,4,5,6};
     private int currRandomIndex;
     private bool canHold;
@@ -59,6 +61,8 @@ public class GameFlowManager : MonoBehaviour
       scoreManager = GameObject.Find("ScoreSign").GetComponent<ScoreManager>();
       gameBoardManager = GameObject.Find("Grid").GetComponent<GameBoardManager>();
       currentGameState = gameState.NewGame;
+      menuCanvas.transform.Find("GameOver").gameObject.SetActive(false);
+      scoreDisplay.text = " ";
     }
 
     void Start()
@@ -85,7 +89,6 @@ public class GameFlowManager : MonoBehaviour
     {
       activePieceInstance = Instantiate(activePiecePrefabs[currPieceIndex]);
       controller = activePieceInstance.GetComponent<ActivePieceController>();
-      Debug.Log("SCORE MANAGER INTERVAL " + scoreManager.interval);
       controller.Setup(currPieceIndex, scoreManager.interval);
       controller.OnHitBottom += StopPiece;
       controller.OnHold += HoldPiece;
@@ -184,6 +187,8 @@ Whenever a piece stops, immediately create a new one.
     {
       Debug.Log("ENDGAME");
       PauseGame();
+      menuCanvas.transform.Find("GameOver").gameObject.SetActive(true);
+      scoreDisplay.text= scoreManager.currScore.ToString();
       currentGameState = gameState.Ended;
 
 
