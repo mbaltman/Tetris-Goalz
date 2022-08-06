@@ -36,6 +36,8 @@ public class GameFlowManager : MonoBehaviour
     private int nextPieceIndex;
     private int holdPieceIndex;
     private int currPieceIndex;
+    private float spawnTime;
+    private bool spawn;
 
     public delegate void UpdateSignDelegate(int index, string currPiece);
     public event UpdateSignDelegate UpdatePiece;
@@ -48,6 +50,7 @@ public class GameFlowManager : MonoBehaviour
 
     void Awake()
     {
+      spawn = false;
       currRandomIndex = 7;
       holdPieceIndex = -1;
       currPieceIndex = GetRandomPiece();
@@ -61,6 +64,18 @@ public class GameFlowManager : MonoBehaviour
     void Start()
     {
       Time.timeScale = 0;
+    }
+
+    void Update()
+    {
+      if(spawn)
+      {
+        if(Time.time > spawnTime)
+        {
+          CreatePiece();
+          spawn = false;
+        }
+      }
     }
 
     /*
@@ -94,18 +109,22 @@ Whenever a piece stops, immediately create a new one.
       RemovePiece();
       if(linesCleared >0)
       {
-        float timeWait = Time.time + Constants.lineClearTime;
+        spawnTime = Time.time + Constants.lineClearTime;
 
         Debug.Log("WAIT TO MAKE NEXT PIECE");
       }
-      currPieceIndex =nextPieceIndex;
+      else
+      {
+        spawnTime = Time.time;
+      }
+      currPieceIndex = nextPieceIndex;
       nextPieceIndex = GetRandomPiece();
       if(UpdatePiece != null)
       {
         UpdatePiece(nextPieceIndex, "NextPiece");
       }
       canHold = true;
-      CreatePiece();
+      spawn = true;
 
     }
 
