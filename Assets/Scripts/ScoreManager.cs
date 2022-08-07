@@ -22,6 +22,10 @@ public class ScoreManager : MonoBehaviour
 
     void Awake()
     {
+      highScore = PlayerPrefs.GetInt("highscore", 0);
+      Debug.Log("initialhighscore");
+      Debug.Log(highScore);
+      DisplayText(highScore_Text, highScore);
       Reset();
 
     }
@@ -139,11 +143,8 @@ public class ScoreManager : MonoBehaviour
      totalLinesCleared = 0;
      interval = 41;
      updateScore = false;
-     highScore = PlayerPrefs.GetInt("highscore", 0);
-     Debug.Log("initialhighscore");
-     Debug.Log(highScore);
+
      DisplayText(currentScore_Text, currScore);
-     DisplayText(highScore_Text, highScore);
      DisplayText(level_Text, level);
 
    }

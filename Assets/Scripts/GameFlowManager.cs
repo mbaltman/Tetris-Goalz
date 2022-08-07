@@ -247,6 +247,8 @@ Whenever a piece stops, immediately create a new one.
       RemovePiece();
       //resets randomizer
       currRandomIndex = 7;
+      currPieceIndex = GetRandomPiece();
+      nextPieceIndex = GetRandomPiece();
       //reset SCORE
       scoreManager.Reset();
       //reset hold and next piece displays
