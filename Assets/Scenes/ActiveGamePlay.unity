@@ -3091,31 +3091,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
-    - target: {fileID: 512101475446761688, guid: e2f3dc8c138e5274db83df038c1fff69,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 512101475446761690, guid: e2f3dc8c138e5274db83df038c1fff69,
-        type: 3}
-      propertyPath: m_UpscaleRT
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 512101475446761690, guid: e2f3dc8c138e5274db83df038c1fff69,
-        type: 3}
-      propertyPath: m_PixelSnapping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 512101475446761691, guid: e2f3dc8c138e5274db83df038c1fff69,
-        type: 3}
-      propertyPath: orthographic size
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 512101475446761691, guid: e2f3dc8c138e5274db83df038c1fff69,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2f3dc8c138e5274db83df038c1fff69, type: 3}
 --- !u!1001 &4470453422012889863
