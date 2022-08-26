@@ -7,4 +7,13 @@ public class SceneChanger: MonoBehaviour {
         SceneManager.LoadScene("ActiveGamePlay");
     }
 
+    public void SceneHowTo() {
+        SceneManager.LoadScene("HowTo");
+    }
+
+    public void SceneMenu() {
+        SceneManager.LoadScene("Opening");
+    }
+
+
 }
