@@ -15,5 +15,8 @@ public class SceneChanger: MonoBehaviour {
         SceneManager.LoadScene("Opening");
     }
 
+    public void CreditMenu() {
+        SceneManager.LoadScene("Credit");
+    }
 
 }

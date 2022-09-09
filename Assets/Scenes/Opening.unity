@@ -964,6 +964,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2701961584423273019, guid: ecbea758bba0e5a42a0c066ac5bf811a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1575871891}
+    - target: {fileID: 2701961584423273019, guid: ecbea758bba0e5a42a0c066ac5bf811a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CreditMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701961584423273019, guid: ecbea758bba0e5a42a0c066ac5bf811a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneChanger, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2701961584423273021, guid: ecbea758bba0e5a42a0c066ac5bf811a,
         type: 3}
       propertyPath: m_Name
